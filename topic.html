@@ -8,8 +8,6 @@
                "wxyz0123456789+/" +
                "=";
 
-			//file:///C:/Users/Bence/Desktop/topic.html?tid=aHR0cDovL2JlbmNlLmV1cm_cm_9tZWRpYS1zemVnZWQuaHU=
-		
 			function getParameterByName(name) {
 				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -49,7 +47,7 @@
 			var data = getParameterByName('tid');
 			if(data.length == 0)
 			{
-				document.write("Hibás adat!");
+				document.write("0x01");
 			}
 			else
 			{
@@ -59,11 +57,11 @@
 					var d = dec(s[0] + s[2]);
 					
 					window.location = d;
-					document.write("Kérlek várj..");
+					document.write("...");
 				}
 				else
 				{
-					document.write("Hibás adat!");
+					document.write("0x02");
 				}
 			}
 		</script>
