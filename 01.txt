@@ -1,34 +1,34 @@
-#KÖRNYEZETTÖRLÉS 
+ï»¿#KÃ–RNYEZETTÃ–RLÃ‰S 
 rm(list=ls())
-#CONSOLE TÖRLÉSE
+#CONSOLE TÃ–RLÃ‰SE
 #Ctrl+L
 
-#Olvassuk be a stackloss adatbázist. Milyen módszer segítségével tudjuk az adatbázis méretét csökkenteni?
+#Olvassuk be a stackloss adatbÃ¡zist. Milyen mÃ³dszer segÃ­tsÃ©gÃ©vel tudjuk az adatbÃ¡zis mÃ©retÃ©t csÃ¶kkenteni?
 
 library(datasets)
 import = stackloss
 model = princomp(import[3:20, 2:3], cor = TRUE)
 summary(model)
-#ez a megoldás a fõkomponens analízishez tartozik
-#oszlopokat szûrhetünk (2:3), elõtte meg a sorokat is leszûrhetjük(3:20)
+#ez a megoldÃ¡s a fÅ‘komponens analÃ­zishez tartozik
+#oszlopokat szÅ±rhetÃ¼nk (2:3), elÅ‘tte meg a sorokat is leszÅ±rhetjÃ¼k(3:20)
 
-#Helyes válasz: Fõkomponens-analízis
+#Helyes vÃ¡lasz: FÅ‘komponens-analÃ­zis
 
 
-#Olvassuk be a stackloss adatbázist. Hány korrelálatlan változóval jellemezhetõ az adatbázis, 
-#ha legfeljebb 5 százalékos információvesztést szeretnénk elérni?
+#Olvassuk be a stackloss adatbÃ¡zist. HÃ¡ny korrelÃ¡latlan vÃ¡ltozÃ³val jellemezhetÅ‘ az adatbÃ¡zis, 
+#ha legfeljebb 5 szÃ¡zalÃ©kos informÃ¡ciÃ³vesztÃ©st szeretnÃ©nk elÃ©rni?
 library(datasets)
 import = stackloss
 model = princomp(import, cor = TRUE)
 summary(model)
-#1.00000000-0.98670691 még legfeljebb 0.05-ön belül van ez Comp.3
-#1.00000000-0.9328791 már több mint 0.05, így nem lehet
+#1.00000000-0.98670691 mÃ©g legfeljebb 0.05-Ã¶n belÃ¼l van ez Comp.3
+#1.00000000-0.9328791 mÃ¡r tÃ¶bb mint 0.05, Ã­gy nem lehet
 
-#Megoldás: 3
+#MegoldÃ¡s: 3
 
 
-#Olvassuk be a stackloss adatbázist. Pontosan hány százalék az információvesztés mértéke, 
-#ha az utolsó két fõkomponenst elhagyjuk? Adjuk meg százalékjel nélkül.
+#Olvassuk be a stackloss adatbÃ¡zist. Pontosan hÃ¡ny szÃ¡zalÃ©k az informÃ¡ciÃ³vesztÃ©s mÃ©rtÃ©ke, 
+#ha az utolsÃ³ kÃ©t fÅ‘komponenst elhagyjuk? Adjuk meg szÃ¡zalÃ©kjel nÃ©lkÃ¼l.
 library(datasets)
 import = stackloss
 model = princomp(import, cor = TRUE)
@@ -36,20 +36,20 @@ summary(model)
 
 sum(0.05382785, 0.01329309) #Comp.4, Comp.3 2. sora ezek amiket elhagyunk
 #VAGY
-1.00000000-0.9328791 #Comp.2 információvesztés mértéke 3. sorban kivonva a Comp.4 3. sorából
+1.00000000-0.9328791 #Comp.2 informÃ¡ciÃ³vesztÃ©s mÃ©rtÃ©ke 3. sorban kivonva a Comp.4 3. sorÃ¡bÃ³l
 
-#Megoldás: 6,71
+#MegoldÃ¡s: 6,71
 
 
-#Olvassuk be a stackloss adatbázist. Dimenziócsökkentés során hogyan áll elõ a legfontosabb 
-#új változó az eredeti változók lineáris kombinációjaként? Három tizedes jegyre kerekítve adjuk 
-#meg az Air.Flow változó együtthatóját.
+#Olvassuk be a stackloss adatbÃ¡zist. DimenziÃ³csÃ¶kkentÃ©s sorÃ¡n hogyan Ã¡ll elÅ‘ a legfontosabb 
+#Ãºj vÃ¡ltozÃ³ az eredeti vÃ¡ltozÃ³k lineÃ¡ris kombinÃ¡ciÃ³jakÃ©nt? HÃ¡rom tizedes jegyre kerekÃ­tve adjuk 
+#meg az Air.Flow vÃ¡ltozÃ³ egyÃ¼tthatÃ³jÃ¡t.
 
 library(datasets)
 import = stackloss
 model = princomp(import, cor = TRUE)
 summary(model)
 (load = loadings(model))
-#Comp.1 oszlop, 1. sor Air.Flow-nál
+#Comp.1 oszlop, 1. sor Air.Flow-nÃ¡l
 
-#Megoldás: -0,547 ± 1%
+#MegoldÃ¡s: -0,547 Â± 1%
