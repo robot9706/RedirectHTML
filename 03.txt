@@ -1,174 +1,174 @@
-#KÖRNYEZETTÖRLÉS 
+ï»¿#KÃ–RNYEZETTÃ–RLÃ‰S 
 rm(list=ls())
-#CONSOLE TÖRLÉSE
+#CONSOLE TÃ–RLÃ‰SE
 #Ctrl+L
 
-#Az admission adatbázisban található GPA és GMAT pontszámok alapján szeretnénk megjósolni a fõiskolára 
-#való bekerülés valószínûségét (De = admit, notadmit, borderline). Az adatbázis letölthetõ a következõ címrõl:
+#Az admission adatbÃ¡zisban talÃ¡lhatÃ³ GPA Ã©s GMAT pontszÃ¡mok alapjÃ¡n szeretnÃ©nk megjÃ³solni a fÅ‘iskolÃ¡ra 
+#valÃ³ bekerÃ¼lÃ©s valÃ³szÃ­nÅ±sÃ©gÃ©t (De = admit, notadmit, borderline). Az adatbÃ¡zis letÃ¶lthetÅ‘ a kÃ¶vetkezÅ‘ cÃ­mrÅ‘l:
 #  http://www.biz.uiowa.edu/faculty/jledolter/DataMining/admission.csv
-#Térjünk át egy olyan új koordinátarendszerre, melyben jól szétválnak a csoportok. 
-#Adjuk meg a (centralizált) GPA változó elsõ dimenzióhoz tartozó együtthatójának abszolút értékét.
+#TÃ©rjÃ¼nk Ã¡t egy olyan Ãºj koordinÃ¡tarendszerre, melyben jÃ³l szÃ©tvÃ¡lnak a csoportok. 
+#Adjuk meg a (centralizÃ¡lt) GPA vÃ¡ltozÃ³ elsÅ‘ dimenziÃ³hoz tartozÃ³ egyÃ¼tthatÃ³jÃ¡nak abszolÃºt Ã©rtÃ©kÃ©t.
 
 
 input = read.csv("admission.csv", header = TRUE)
 attach(input)
-#jól szétválasztjuk
+#jÃ³l szÃ©tvÃ¡lasztjuk
 model = lda(De ~ GPA + GMAT)
 model
 
-#alapból centralizált
+#alapbÃ³l centralizÃ¡lt
 
 #Coefficients of linear discriminants:
-#             LD1         LD2 <-DIMENZIÓK
-#GPA  5.008766354  1.87668220 <-GPA VÁLTOZÓ
+#             LD1         LD2 <-DIMENZIÃ“K
+#GPA  5.008766354  1.87668220 <-GPA VÃLTOZÃ“
 #GMAT 0.008568593 -0.01445106
 
-#Megoldás: 5,009 ± 1%
+#MegoldÃ¡s: 5,009 Â± 1%
 
-#Az admission adatbázisban található GPA és GMAT pontszámok alapján szeretnénk megjósolni a fõiskolára 
-#való bekerülés valószínûségét (De = admit, notadmit, borderline). Az adatbázis letölthetõ a következõ címrõl:
+#Az admission adatbÃ¡zisban talÃ¡lhatÃ³ GPA Ã©s GMAT pontszÃ¡mok alapjÃ¡n szeretnÃ©nk megjÃ³solni a fÅ‘iskolÃ¡ra 
+#valÃ³ bekerÃ¼lÃ©s valÃ³szÃ­nÅ±sÃ©gÃ©t (De = admit, notadmit, borderline). Az adatbÃ¡zis letÃ¶lthetÅ‘ a kÃ¶vetkezÅ‘ cÃ­mrÅ‘l:
 #  http://www.biz.uiowa.edu/faculty/jledolter/DataMining/admission.csv
-#Térjünk át egy olyan új koordinátarendszerre, melyben jól szétválnak a csoportok. 
-#Adjuk meg az elsõ megfigyelés x-koordinátáját ebben az új koordináta-rendszerben.
+#TÃ©rjÃ¼nk Ã¡t egy olyan Ãºj koordinÃ¡tarendszerre, melyben jÃ³l szÃ©tvÃ¡lnak a csoportok. 
+#Adjuk meg az elsÅ‘ megfigyelÃ©s x-koordinÃ¡tÃ¡jÃ¡t ebben az Ãºj koordinÃ¡ta-rendszerben.
 
 
 input = read.csv("admission.csv", header = TRUE)
 attach(input)
-#jól szétválasztjuk
+#jÃ³l szÃ©tvÃ¡lasztjuk
 model = lda(De ~ GPA + GMAT)
 pred = data.frame(predict(model))
 pred
-#elsõ megfigyelés = legelsõ sor
-#x koordináta x.LD1
+#elsÅ‘ megfigyelÃ©s = legelsÅ‘ sor
+#x koordinÃ¡ta x.LD1
 
-#Megoldás: 0,8485 ± 1%
+#MegoldÃ¡s: 0,8485 Â± 1%
 
 
-#Az admission adatbázisban található GPA és GMAT pontszámok alapján szeretnénk megjósolni a fõiskolára 
-#való bekerülés valószínûségét (De = admit, notadmit, borderline). Az adatbázis letölthetõ a következõ címrõl:
+#Az admission adatbÃ¡zisban talÃ¡lhatÃ³ GPA Ã©s GMAT pontszÃ¡mok alapjÃ¡n szeretnÃ©nk megjÃ³solni a fÅ‘iskolÃ¡ra 
+#valÃ³ bekerÃ¼lÃ©s valÃ³szÃ­nÅ±sÃ©gÃ©t (De = admit, notadmit, borderline). Az adatbÃ¡zis letÃ¶lthetÅ‘ a kÃ¶vetkezÅ‘ cÃ­mrÅ‘l:
 #  http://www.biz.uiowa.edu/faculty/jledolter/DataMining/admission.csv
-#Soroljuk be a jelentkezõket az „admit”, „notadmit”, vagy „borderline” kategóriák valamelyikébe. 
-#Az esetek hány százalékában mûködött jól az algoritmus?
+#Soroljuk be a jelentkezÅ‘ket az â€admitâ€, â€notadmitâ€, vagy â€borderlineâ€ kategÃ³riÃ¡k valamelyikÃ©be. 
+#Az esetek hÃ¡ny szÃ¡zalÃ©kÃ¡ban mÅ±kÃ¶dÃ¶tt jÃ³l az algoritmus?
 
 input = read.csv("admission.csv", header = TRUE)
 attach(input)
-#jól szétválasztjuk
+#jÃ³l szÃ©tvÃ¡lasztjuk
 model = lda(De ~ GPA + GMAT)
 pred = data.frame(predict(model))
-#table(De, pred$class, dnn = c("original", "predicted")) részletesen látjuk, mennyit sorol rosszul
+#table(De, pred$class, dnn = c("original", "predicted")) rÃ©szletesen lÃ¡tjuk, mennyit sorol rosszul
 mean(De == pred$class)
-#ügyesen kell kerekíteni
+#Ã¼gyesen kell kerekÃ­teni
 
-#Megoldás: 91,77
+#MegoldÃ¡s: 91,77
 
 
-#Az admission adatbázisban található GPA és GMAT pontszámok alapján szeretnénk megjósolni a fõiskolára való 
-#bekerülés valószínûségét (De = admit, notadmit, borderline). Az adatbázis letölthetõ a következõ címrõl:
+#Az admission adatbÃ¡zisban talÃ¡lhatÃ³ GPA Ã©s GMAT pontszÃ¡mok alapjÃ¡n szeretnÃ©nk megjÃ³solni a fÅ‘iskolÃ¡ra valÃ³ 
+#bekerÃ¼lÃ©s valÃ³szÃ­nÅ±sÃ©gÃ©t (De = admit, notadmit, borderline). Az adatbÃ¡zis letÃ¶lthetÅ‘ a kÃ¶vetkezÅ‘ cÃ­mrÅ‘l:
 #  http://www.biz.uiowa.edu/faculty/jledolter/DataMining/admission.csv
-#Soroljuk be a jelentkezõket az „admit”, „notadmit”, vagy „borderline” kategóriák valamelyikébe. 
-#Várhatóan melyik csoportba fog tartozni az a jelentkezõ, akinek a következõ pontszámai vannak: GPA=3.21, GMAT=497?
+#Soroljuk be a jelentkezÅ‘ket az â€admitâ€, â€notadmitâ€, vagy â€borderlineâ€ kategÃ³riÃ¡k valamelyikÃ©be. 
+#VÃ¡rhatÃ³an melyik csoportba fog tartozni az a jelentkezÅ‘, akinek a kÃ¶vetkezÅ‘ pontszÃ¡mai vannak: GPA=3.21, GMAT=497?
 
 input = read.csv("admission.csv", header = TRUE)
 attach(input)
-#jól szétválasztjuk
+#jÃ³l szÃ©tvÃ¡lasztjuk
 model = lda(De ~ GPA + GMAT)
 pred = data.frame(predict(model,data.frame(GPA=3.21, GMAT=497)))
 pred
-#a legelsõ szöveges érték
+#a legelsÅ‘ szÃ¶veges Ã©rtÃ©k
 
-#Helyes válasz: admit
+#Helyes vÃ¡lasz: admit
 
 
-#Az admission adatbázisban található GPA és GMAT pontszámok alapján szeretnénk megjósolni a fõiskolára való 
-#bekerülés valószínûségét (De = admit, notadmit, borderline). Az adatbázis letölthetõ a következõ címrõl:
+#Az admission adatbÃ¡zisban talÃ¡lhatÃ³ GPA Ã©s GMAT pontszÃ¡mok alapjÃ¡n szeretnÃ©nk megjÃ³solni a fÅ‘iskolÃ¡ra valÃ³ 
+#bekerÃ¼lÃ©s valÃ³szÃ­nÅ±sÃ©gÃ©t (De = admit, notadmit, borderline). Az adatbÃ¡zis letÃ¶lthetÅ‘ a kÃ¶vetkezÅ‘ cÃ­mrÅ‘l:
 #  http://www.biz.uiowa.edu/faculty/jledolter/DataMining/admission.csv
-#Soroljuk be a jelentkezõket az „admit”, „notadmit”, vagy „borderline” kategóriák valamelyikébe. 
-#Mekkora valószínûséggel került a modell által besorolt csoportba az a jelentkezõ, akinek a következõ pontszámai vannak: GPA=3.21, GMAT=497?
+#Soroljuk be a jelentkezÅ‘ket az â€admitâ€, â€notadmitâ€, vagy â€borderlineâ€ kategÃ³riÃ¡k valamelyikÃ©be. 
+#Mekkora valÃ³szÃ­nÅ±sÃ©ggel kerÃ¼lt a modell Ã¡ltal besorolt csoportba az a jelentkezÅ‘, akinek a kÃ¶vetkezÅ‘ pontszÃ¡mai vannak: GPA=3.21, GMAT=497?
 
 input = read.csv("admission.csv", header = TRUE)
 attach(input)
-#jól szétválasztjuk
+#jÃ³l szÃ©tvÃ¡lasztjuk
 model = lda(De ~ GPA + GMAT)
 pred = data.frame(predict(model,data.frame(GPA=3.21, GMAT=497)))
 pred
-#az elsõ számérték
+#az elsÅ‘ szÃ¡mÃ©rtÃ©k
 
-#Megoldás: 0,518 ± 1%
+#MegoldÃ¡s: 0,518 Â± 1%
 
 
-#Az admission adatbázisban található GPA és GMAT pontszámok alapján szeretnénk megjósolni a fõiskolára való 
-#bekerülés valószínûségét (De = admit, notadmit, borderline). Az adatbázis letölthetõ a következõ címrõl:
+#Az admission adatbÃ¡zisban talÃ¡lhatÃ³ GPA Ã©s GMAT pontszÃ¡mok alapjÃ¡n szeretnÃ©nk megjÃ³solni a fÅ‘iskolÃ¡ra valÃ³ 
+#bekerÃ¼lÃ©s valÃ³szÃ­nÅ±sÃ©gÃ©t (De = admit, notadmit, borderline). Az adatbÃ¡zis letÃ¶lthetÅ‘ a kÃ¶vetkezÅ‘ cÃ­mrÅ‘l:
 #  http://www.biz.uiowa.edu/faculty/jledolter/DataMining/admission.csv
-#Milyen módszert használ a felvételizõk „admit”, „notadmit”, vagy „borderline” kategóriákba sorolására?
+#Milyen mÃ³dszert hasznÃ¡l a felvÃ©telizÅ‘k â€admitâ€, â€notadmitâ€, vagy â€borderlineâ€ kategÃ³riÃ¡kba sorolÃ¡sÃ¡ra?
 
-#Helyes válasz:
-#  Diszkriminancia-analízis
+#Helyes vÃ¡lasz:
+#  Diszkriminancia-analÃ­zis
 
 
 # =================================================================================
 
 
-# Olvassuk be a „datasets” csomagból a „UCBAdmissions” adatbázist, 
-# mely aggregált adatokat tartalmaz. 
-# Teszteljük 5%-os szignifikancia szinten azt a nullhipotézist, hogy 
-# a fiúk és a lányok egyforma arányban nyertek felvételt, vagyis, hogy 
-# a felvételi eredmény („Admit”) független a nemtõl („Gender”).
+# Olvassuk be a â€datasetsâ€ csomagbÃ³l a â€UCBAdmissionsâ€ adatbÃ¡zist, 
+# mely aggregÃ¡lt adatokat tartalmaz. 
+# TeszteljÃ¼k 5%-os szignifikancia szinten azt a nullhipotÃ©zist, hogy 
+# a fiÃºk Ã©s a lÃ¡nyok egyforma arÃ¡nyban nyertek felvÃ©telt, vagyis, hogy 
+# a felvÃ©teli eredmÃ©ny (â€Admitâ€) fÃ¼ggetlen a nemtÅ‘l (â€Genderâ€).
 
 d = data.frame(UCBAdmissions)
 (gyak.tablazat = xtabs(Freq ~ Gender + Admit, data = d))
 chisq.test(gyak.tablazat, correct = FALSE)
 
-#Helyes válasz:
-#  Próbastatisztika = 92,21; szabadsági fok = 1; p < 0,001 --> Elutasítjuk a nullhipotézist, a felvételi eredmény függ a nemtõl.
+#Helyes vÃ¡lasz:
+#  PrÃ³bastatisztika = 92,21; szabadsÃ¡gi fok = 1; p < 0,001 --> ElutasÃ­tjuk a nullhipotÃ©zist, a felvÃ©teli eredmÃ©ny fÃ¼gg a nemtÅ‘l.
 
 
 # =================================================================================
 # =================================================================================
 
 
-#Olvassuk be a car_sales.csv adatbázist. Állítsuk elõ az adatbázisban szereplõ (standardizált) 
-#folytonos változókat korrelálatlan változók lineáris kombinációjaként. Hány korrelálatlan változóval 
-#jellemezhetõ az adatbázis, ha legfeljebb 15 százalékos információvesztést szeretnénk elérni?
+#Olvassuk be a car_sales.csv adatbÃ¡zist. ÃllÃ­tsuk elÅ‘ az adatbÃ¡zisban szereplÅ‘ (standardizÃ¡lt) 
+#folytonos vÃ¡ltozÃ³kat korrelÃ¡latlan vÃ¡ltozÃ³k lineÃ¡ris kombinÃ¡ciÃ³jakÃ©nt. HÃ¡ny korrelÃ¡latlan vÃ¡ltozÃ³val 
+#jellemezhetÅ‘ az adatbÃ¡zis, ha legfeljebb 15 szÃ¡zalÃ©kos informÃ¡ciÃ³vesztÃ©st szeretnÃ©nk elÃ©rni?
 
 cars = read.csv2("car_sales.csv", header = TRUE)
 model = princomp(cars[, 3:13], cor = TRUE)
 summary(model)
-#Comp.11-nél láthatjuk a 3. sorban az 1.0 egészes értéket, ha a felette levõt kivonjuk ami a 2. sorban van, 
-#akkor megkapjuk a 3. sorban az 1.0 elõtt levõ értéket, ez ismétlõdik visszafele végig
-#3. sor az információ vesztés a felette levõ pedig hogy mennyivel veszik el folyamatosan
-#azért a Comp.4 a megfelelõ LEGFELJEBB 15%-os vesztésnél, mert 1.00000000-0.89925788 még 0.15 ön belül van, de
-#Comp.3-nál, már 1.00000000-0.84161589 az 0.15 felett van, tehát az már nem jó.
+#Comp.11-nÃ©l lÃ¡thatjuk a 3. sorban az 1.0 egÃ©szes Ã©rtÃ©ket, ha a felette levÅ‘t kivonjuk ami a 2. sorban van, 
+#akkor megkapjuk a 3. sorban az 1.0 elÅ‘tt levÅ‘ Ã©rtÃ©ket, ez ismÃ©tlÅ‘dik visszafele vÃ©gig
+#3. sor az informÃ¡ciÃ³ vesztÃ©s a felette levÅ‘ pedig hogy mennyivel veszik el folyamatosan
+#azÃ©rt a Comp.4 a megfelelÅ‘ LEGFELJEBB 15%-os vesztÃ©snÃ©l, mert 1.00000000-0.89925788 mÃ©g 0.15 Ã¶n belÃ¼l van, de
+#Comp.3-nÃ¡l, mÃ¡r 1.00000000-0.84161589 az 0.15 felett van, tehÃ¡t az mÃ¡r nem jÃ³.
 
-#Megoldás: 4
+#MegoldÃ¡s: 4
 
 
-#Olvassuk be a car_sales.csv adatbázist. Az adatbázisban szereplõ folytonos változók (standardizáltjainak) 
-#felhasználásával térjünk át egy olyan új koordinátarendszerre, amelyben a megfigyelések korrelálatlanok. 
-#Ha az adatbázist csak két korrelálatlan változóval jellemezzük, hány százalék az információvesztés mértéke?
+#Olvassuk be a car_sales.csv adatbÃ¡zist. Az adatbÃ¡zisban szereplÅ‘ folytonos vÃ¡ltozÃ³k (standardizÃ¡ltjainak) 
+#felhasznÃ¡lÃ¡sÃ¡val tÃ©rjÃ¼nk Ã¡t egy olyan Ãºj koordinÃ¡tarendszerre, amelyben a megfigyelÃ©sek korrelÃ¡latlanok. 
+#Ha az adatbÃ¡zist csak kÃ©t korrelÃ¡latlan vÃ¡ltozÃ³val jellemezzÃ¼k, hÃ¡ny szÃ¡zalÃ©k az informÃ¡ciÃ³vesztÃ©s mÃ©rtÃ©ke?
 
 cars = read.csv2("car_sales.csv", header = TRUE)
 model = princomp(cars[, 3:13], cor = TRUE)
 summary(model)
-#megbeszéltük, hogy az információvesztés az a 2. sor és 2 korrelálatlan változóval jellemzzük ami annyit tesz,
-#hogy Comp.2 oszlopben keressük
+#megbeszÃ©ltÃ¼k, hogy az informÃ¡ciÃ³vesztÃ©s az a 2. sor Ã©s 2 korrelÃ¡latlan vÃ¡ltozÃ³val jellemzzÃ¼k ami annyit tesz,
+#hogy Comp.2 oszlopben keressÃ¼k
 
-#Megoldás: 22,6 ± 1%
+#MegoldÃ¡s: 22,6 Â± 1%
 
 
 
-#Olvassuk be a car_sales.csv adatbázist. Vizsgáljuk meg a folytonos változók közötti Pearson-korrelációkat! 
-#  Mekkora a korreláció a lóerõ (horsepow) és az ár (price) között?
+#Olvassuk be a car_sales.csv adatbÃ¡zist. VizsgÃ¡ljuk meg a folytonos vÃ¡ltozÃ³k kÃ¶zÃ¶tti Pearson-korrelÃ¡ciÃ³kat! 
+#  Mekkora a korrelÃ¡ciÃ³ a lÃ³erÅ‘ (horsepow) Ã©s az Ã¡r (price) kÃ¶zÃ¶tt?
 
 cars = read.csv2("car_sales.csv", header = TRUE)
 attach(cars)
 cor.test(horsepow, price, method = "pearson")
 
-#Megoldás: 0,8535 ± 1%
+#MegoldÃ¡s: 0,8535 Â± 1%
 
 
-#Olvassuk be a car_sales.csv adatbázist. Az adatbázisban szereplõ folytonos változók (standardizáltjainak) felhasználásával 
-#térjünk át egy olyan új koordinátarendszerre, amelyben a megfigyelések korrelálatlanok. Hogyan áll elõ a legfontosabb új 
-#változó az eredetiek (standardizáltjainak) lineáris kombinációjaként? Adja meg az mpg változó együtthatójának abszolút értékét.
+#Olvassuk be a car_sales.csv adatbÃ¡zist. Az adatbÃ¡zisban szereplÅ‘ folytonos vÃ¡ltozÃ³k (standardizÃ¡ltjainak) felhasznÃ¡lÃ¡sÃ¡val 
+#tÃ©rjÃ¼nk Ã¡t egy olyan Ãºj koordinÃ¡tarendszerre, amelyben a megfigyelÃ©sek korrelÃ¡latlanok. Hogyan Ã¡ll elÅ‘ a legfontosabb Ãºj 
+#vÃ¡ltozÃ³ az eredetiek (standardizÃ¡ltjainak) lineÃ¡ris kombinÃ¡ciÃ³jakÃ©nt? Adja meg az mpg vÃ¡ltozÃ³ egyÃ¼tthatÃ³jÃ¡nak abszolÃºt Ã©rtÃ©kÃ©t.
 
 cars = read.csv2("car_sales.csv", header = TRUE)
 model = princomp(cars[, 3:13], cor = TRUE)
@@ -176,142 +176,142 @@ model = princomp(cars[, 3:13], cor = TRUE)
 #mpg sor
 #Comp.1 oszlop
 
-#Megoldás: 0,342 ± 1%
+#MegoldÃ¡s: 0,342 Â± 1%
 
 
-#Olvassuk be a car_sales.csv adatbázist. Milyen módszer segítségével tudjuk az adatbázis méretét csökkenteni?
+#Olvassuk be a car_sales.csv adatbÃ¡zist. Milyen mÃ³dszer segÃ­tsÃ©gÃ©vel tudjuk az adatbÃ¡zis mÃ©retÃ©t csÃ¶kkenteni?
 
 cars = read.csv2("car_sales.csv", header = TRUE)
 model = princomp(cars[3:100, 3:13], cor = TRUE)
 summary(model)
-#ez a megoldás a fõkomponens analízishez tartozik
-#read.csv helyett read.csv2-vel tudjuk ezt normálisan betölteni
-#mivel az elsõ 2 oszlop nem folytonos változó ezért le kell csapni õket (3:13), elõtte meg a sorokat is leszûrhetjük(3:100)
+#ez a megoldÃ¡s a fÅ‘komponens analÃ­zishez tartozik
+#read.csv helyett read.csv2-vel tudjuk ezt normÃ¡lisan betÃ¶lteni
+#mivel az elsÅ‘ 2 oszlop nem folytonos vÃ¡ltozÃ³ ezÃ©rt le kell csapni Å‘ket (3:13), elÅ‘tte meg a sorokat is leszÅ±rhetjÃ¼k(3:100)
 
-#Helyes válasz: Fõkomponens-analízis
+#Helyes vÃ¡lasz: FÅ‘komponens-analÃ­zis
 
 
 # =================================================================================
 # =================================================================================
 
 
-#Olvassuk be a vallalat.txt adatbázist. Standardizáljuk a folytonos változókat. 
-#Csoportosítsuk a vállalatokat a rendelkezésre álló folytonos változók alapján így, hogy jól szeparált klasztereket kapjunk. 
-#2 csoport kialakításával mekkora lesz az egyes csoportok elemszáma?
+#Olvassuk be a vallalat.txt adatbÃ¡zist. StandardizÃ¡ljuk a folytonos vÃ¡ltozÃ³kat. 
+#CsoportosÃ­tsuk a vÃ¡llalatokat a rendelkezÃ©sre Ã¡llÃ³ folytonos vÃ¡ltozÃ³k alapjÃ¡n Ã­gy, hogy jÃ³l szeparÃ¡lt klasztereket kapjunk. 
+#2 csoport kialakÃ­tÃ¡sÃ¡val mekkora lesz az egyes csoportok elemszÃ¡ma?
 
 adat = read.table("vallalat.txt", header = TRUE)
 attach(adat)
 #tavolsagmatrix = dist(adat[2:4])
-#oszlopok standardizálása
+#oszlopok standardizÃ¡lÃ¡sa
 adat2 = scale(adat[2])
 adat3 = scale(adat[3])
 adat4 = scale(adat[4])
 tavolsagmatrix = dist(cbind(adat2, adat3, adat4))
 model = hclust(tavolsagmatrix, method = "single")
 plot(model)
-rect.hclust(model, 2) # a vállalatok csoportosítása két csoport kialakítása esetén
+rect.hclust(model, 2) # a vÃ¡llalatok csoportosÃ­tÃ¡sa kÃ©t csoport kialakÃ­tÃ¡sa esetÃ©n
 
-#megnézzük 1 oldalt hány darab érték van
+#megnÃ©zzÃ¼k 1 oldalt hÃ¡ny darab Ã©rtÃ©k van
 
-#Megoldás: 5
+#MegoldÃ¡s: 5
 
 
-#Olvassuk be a vallalat.txt adatbázist. Standardizáljuk a folytonos változókat. Csoportosítsuk a vállalatokat 
-#a rendelkezésre álló folytonos változók alapján úgy, hogy jól szeparált klasztereket kapjunk. 
-#Az egymáshoz két legközelebbi vállalat összevonása mekkora távolságnál történt?
+#Olvassuk be a vallalat.txt adatbÃ¡zist. StandardizÃ¡ljuk a folytonos vÃ¡ltozÃ³kat. CsoportosÃ­tsuk a vÃ¡llalatokat 
+#a rendelkezÃ©sre Ã¡llÃ³ folytonos vÃ¡ltozÃ³k alapjÃ¡n Ãºgy, hogy jÃ³l szeparÃ¡lt klasztereket kapjunk. 
+#Az egymÃ¡shoz kÃ©t legkÃ¶zelebbi vÃ¡llalat Ã¶sszevonÃ¡sa mekkora tÃ¡volsÃ¡gnÃ¡l tÃ¶rtÃ©nt?
 
 adat = read.table("vallalat.txt", header = TRUE)
 attach(adat)
-#oszlopok standardizálása
+#oszlopok standardizÃ¡lÃ¡sa
 adat2 = scale(adat[2])
 adat3 = scale(adat[3])
 adat4 = scale(adat[4])
 tavolsagmatrix = dist(cbind(adat2, adat3, adat4))
 model = hclust(tavolsagmatrix, method = "single")
-#model$merge # a vállalatok összevonásának menete
-magassag = model$height # az összevont vállalatok közötti távolságok a fenti lépések során
-print(magassag, digits = 3) #ITT A MEGOLDÁS: balra a legkissebb, jobbra a legnagyobb
+#model$merge # a vÃ¡llalatok Ã¶sszevonÃ¡sÃ¡nak menete
+magassag = model$height # az Ã¶sszevont vÃ¡llalatok kÃ¶zÃ¶tti tÃ¡volsÃ¡gok a fenti lÃ©pÃ©sek sorÃ¡n
+print(magassag, digits = 3) #ITT A MEGOLDÃS: balra a legkissebb, jobbra a legnagyobb
 
-#Megoldás: 0,255 ± 1%
+#MegoldÃ¡s: 0,255 Â± 1%
 
 
-#Olvassuk be a vallalat.txt adatbázist. Standardizáljuk a folytonos változókat. Csoportosítsuk a vállalatokat 
-#a rendelkezésre álló folytonos változók alapján úgy, hogy jól szeparált klasztereket kapjunk. 
-#Az utolsó összevonás mekkora távolságnál történt?
+#Olvassuk be a vallalat.txt adatbÃ¡zist. StandardizÃ¡ljuk a folytonos vÃ¡ltozÃ³kat. CsoportosÃ­tsuk a vÃ¡llalatokat 
+#a rendelkezÃ©sre Ã¡llÃ³ folytonos vÃ¡ltozÃ³k alapjÃ¡n Ãºgy, hogy jÃ³l szeparÃ¡lt klasztereket kapjunk. 
+#Az utolsÃ³ Ã¶sszevonÃ¡s mekkora tÃ¡volsÃ¡gnÃ¡l tÃ¶rtÃ©nt?
 
 adat = read.table("vallalat.txt", header = TRUE)
 attach(adat)
-#oszlopok standardizálása
+#oszlopok standardizÃ¡lÃ¡sa
 adat2 = scale(adat[2])
 adat3 = scale(adat[3])
 adat4 = scale(adat[4])
 tavolsagmatrix = dist(cbind(adat2, adat3, adat4))
 model = hclust(tavolsagmatrix, method = "single")
-#model$merge # a vállalatok összevonásának menete
-magassag = model$height # az összevont vállalatok közötti távolságok a fenti lépések során
-print(magassag, digits = 3) #ITT A MEGOLDÁS: balra a legkissebb, jobbra a legnagyobb
+#model$merge # a vÃ¡llalatok Ã¶sszevonÃ¡sÃ¡nak menete
+magassag = model$height # az Ã¶sszevont vÃ¡llalatok kÃ¶zÃ¶tti tÃ¡volsÃ¡gok a fenti lÃ©pÃ©sek sorÃ¡n
+print(magassag, digits = 3) #ITT A MEGOLDÃS: balra a legkissebb, jobbra a legnagyobb
 
-#Megoldás: 2,213 ± 1%
-
-
-#Olvassuk be a vallalat.txt adatbázist. Standardizáljuk a folytonos változókat. Csoportosítsuk a vállalatokat 
-#a rendelkezésre álló folytonos változók alapján úgy, hogy jól szeparált klasztereket kapjunk. Milyen eljárást használ?
-
-#Helyes válasz:
-#  Klaszter-analízis, legközelebbi szomszéd módszer
+#MegoldÃ¡s: 2,213 Â± 1%
 
 
-# =================================================================================
-# =================================================================================
+#Olvassuk be a vallalat.txt adatbÃ¡zist. StandardizÃ¡ljuk a folytonos vÃ¡ltozÃ³kat. CsoportosÃ­tsuk a vÃ¡llalatokat 
+#a rendelkezÃ©sre Ã¡llÃ³ folytonos vÃ¡ltozÃ³k alapjÃ¡n Ãºgy, hogy jÃ³l szeparÃ¡lt klasztereket kapjunk. Milyen eljÃ¡rÃ¡st hasznÃ¡l?
 
-
-#Az alábbiak közül melyik hamis a diszkriminancia analízis esetén?
-# =================================================================================
-
-#Eredménye alapján azok a megfigyelések is osztályozhatók, melyek eredeti csoportját nem ismerjük.
-
-#A diszkriminancia függvények az eredeti változók (illetve azok centralizáltjainak) lineáris kombinációi.
-
-#A megfigyeléseket elõre adott osztályokba soroljuk.
-
-#HAMIS - Eredménye alapján megjósolható egy folytonos változónak egy másik folytonos változóhoz tartozó értéke.
-
-#Eredménye alapján megjósolható, hogy a megfigyelések mekkora valószínûséggel kerülnek egy adott csoportba.
-
-# =================================================================================
-
-
-#Az alábbiak közül melyik igaz a divizív hierarchikus klaszterezési eljárásokra?
-# =================================================================================
-
-#IGAZ - Kezdetben minden megfigyelés egyetlen klaszterbe kerül, majd ezt a klasztert minden lehetséges módon 
-#felbontjuk két részre, és azt a felbontást tartjuk meg, ahol a klaszterek közötti távolság a legnagyobb.
-
-#Kezdetben minden megfigyelés egyetlen klaszterbe kerül, majd ezt a klasztert minden lehetséges módon 
-#felbontjuk annyi részre, amennyire szükségünk van.
-
-#Kezdetben minden megfigyelés önálló klasztert alkot, majd fokozatosan összevonjuk a két legtávolabbi 
-#klasztert egészen addig, amíg egyetlen klaszterünk nem lesz.
-
-#Kezdetben minden megfigyelés önálló klasztert alkot, majd fokozatosan összevonjuk a két legközelebbi 
-#klasztert egészen addig, amíg egyetlen klaszterünk nem lesz.
-# =================================================================================
+#Helyes vÃ¡lasz:
+#  Klaszter-analÃ­zis, legkÃ¶zelebbi szomszÃ©d mÃ³dszer
 
 
 # =================================================================================
 # =================================================================================
 
 
-#Olvassuk be a következõ címen található adatbázist (az elsõ sorban nincsenek megadva a változónevek) a „dat” nevû 
-#táblázatba: http://www4.stat.ncsu.edu/~stefanski/NSF_Supported/Hidden_Images/orly_owl_files/orly_owl_Lin_4p_5_flat.txt.
-#A következõ utasítások futtatásával, többszörös lineáris regresszió alkalmazásával vizsgáljuk meg, hogyan függ a V1 
-#változó a többi változótól; majd ábrázoljuk a hibatagokat a becsült értékek függvényében (regressziós diagnosztika):
+#Az alÃ¡bbiak kÃ¶zÃ¼l melyik hamis a diszkriminancia analÃ­zis esetÃ©n?
+# =================================================================================
+
+#EredmÃ©nye alapjÃ¡n azok a megfigyelÃ©sek is osztÃ¡lyozhatÃ³k, melyek eredeti csoportjÃ¡t nem ismerjÃ¼k.
+
+#A diszkriminancia fÃ¼ggvÃ©nyek az eredeti vÃ¡ltozÃ³k (illetve azok centralizÃ¡ltjainak) lineÃ¡ris kombinÃ¡ciÃ³i.
+
+#A megfigyelÃ©seket elÅ‘re adott osztÃ¡lyokba soroljuk.
+
+#HAMIS - EredmÃ©nye alapjÃ¡n megjÃ³solhatÃ³ egy folytonos vÃ¡ltozÃ³nak egy mÃ¡sik folytonos vÃ¡ltozÃ³hoz tartozÃ³ Ã©rtÃ©ke.
+
+#EredmÃ©nye alapjÃ¡n megjÃ³solhatÃ³, hogy a megfigyelÃ©sek mekkora valÃ³szÃ­nÅ±sÃ©ggel kerÃ¼lnek egy adott csoportba.
+
+# =================================================================================
+
+
+#Az alÃ¡bbiak kÃ¶zÃ¼l melyik igaz a divizÃ­v hierarchikus klaszterezÃ©si eljÃ¡rÃ¡sokra?
+# =================================================================================
+
+#IGAZ - Kezdetben minden megfigyelÃ©s egyetlen klaszterbe kerÃ¼l, majd ezt a klasztert minden lehetsÃ©ges mÃ³don 
+#felbontjuk kÃ©t rÃ©szre, Ã©s azt a felbontÃ¡st tartjuk meg, ahol a klaszterek kÃ¶zÃ¶tti tÃ¡volsÃ¡g a legnagyobb.
+
+#Kezdetben minden megfigyelÃ©s egyetlen klaszterbe kerÃ¼l, majd ezt a klasztert minden lehetsÃ©ges mÃ³don 
+#felbontjuk annyi rÃ©szre, amennyire szÃ¼ksÃ©gÃ¼nk van.
+
+#Kezdetben minden megfigyelÃ©s Ã¶nÃ¡llÃ³ klasztert alkot, majd fokozatosan Ã¶sszevonjuk a kÃ©t legtÃ¡volabbi 
+#klasztert egÃ©szen addig, amÃ­g egyetlen klaszterÃ¼nk nem lesz.
+
+#Kezdetben minden megfigyelÃ©s Ã¶nÃ¡llÃ³ klasztert alkot, majd fokozatosan Ã¶sszevonjuk a kÃ©t legkÃ¶zelebbi 
+#klasztert egÃ©szen addig, amÃ­g egyetlen klaszterÃ¼nk nem lesz.
+# =================================================================================
+
+
+# =================================================================================
+# =================================================================================
+
+
+#Olvassuk be a kÃ¶vetkezÅ‘ cÃ­men talÃ¡lhatÃ³ adatbÃ¡zist (az elsÅ‘ sorban nincsenek megadva a vÃ¡ltozÃ³nevek) a â€datâ€ nevÅ± 
+#tÃ¡blÃ¡zatba: http://www4.stat.ncsu.edu/~stefanski/NSF_Supported/Hidden_Images/orly_owl_files/orly_owl_Lin_4p_5_flat.txt.
+#A kÃ¶vetkezÅ‘ utasÃ­tÃ¡sok futtatÃ¡sÃ¡val, tÃ¶bbszÃ¶rÃ¶s lineÃ¡ris regressziÃ³ alkalmazÃ¡sÃ¡val vizsgÃ¡ljuk meg, hogyan fÃ¼gg a V1 
+#vÃ¡ltozÃ³ a tÃ¶bbi vÃ¡ltozÃ³tÃ³l; majd Ã¡brÃ¡zoljuk a hibatagokat a becsÃ¼lt Ã©rtÃ©kek fÃ¼ggvÃ©nyÃ©ben (regressziÃ³s diagnosztika):
 #  fit = lm(V1 ~ . - 1, data = dat); plot(predict(fit), resid(fit), pch = '.').
-#Milyen ábrát kaptunk, és mire hívja fel a figyelmet?
+#Milyen Ã¡brÃ¡t kaptunk, Ã©s mire hÃ­vja fel a figyelmet?
 
 dat = read.table("orly_owl_Lin_4p_5_flat.txt", header = FALSE)
 fit = lm(V1 ~ . - 1, data = dat); plot(predict(fit), resid(fit), pch = '.')
 
-#Helyes válasz: A bagoly szerint fontos a regressziós diagnosztika.
+#Helyes vÃ¡lasz: A bagoly szerint fontos a regressziÃ³s diagnosztika.
 
 

@@ -1,45 +1,45 @@
-#KÖRNYEZETTÖRLÉS 
+ï»¿#KÃ–RNYEZETTÃ–RLÃ‰S 
 rm(list=ls())
-#CONSOLE TÖRLÉSE
+#CONSOLE TÃ–RLÃ‰SE
 #Ctrl+L
 
-#Olvassuk be a „MASS” csomagból a „survey” adatbázist, mely egyetemi hallgatók kérdõíves felmérésének eredményét tartalmazza. 
-#Teszteljük 5%-os szignifikancia szinten azt a nullhipotézist, hogy a dohányzási szokás (Smoke) független a testmozgás gyakoriságától (Exer). 
+#Olvassuk be a â€MASSâ€ csomagbÃ³l a â€surveyâ€ adatbÃ¡zist, mely egyetemi hallgatÃ³k kÃ©rdÅ‘Ã­ves felmÃ©rÃ©sÃ©nek eredmÃ©nyÃ©t tartalmazza. 
+#TeszteljÃ¼k 5%-os szignifikancia szinten azt a nullhipotÃ©zist, hogy a dohÃ¡nyzÃ¡si szokÃ¡s (Smoke) fÃ¼ggetlen a testmozgÃ¡s gyakorisÃ¡gÃ¡tÃ³l (Exer). 
 #1. p = 0,4828.
-#2. A kontingencia táblázat tartalmaz 5-nél kisebb gyakoriságot, így a kis elemszám miatt a döntésünk nem megbízható.
+#2. A kontingencia tÃ¡blÃ¡zat tartalmaz 5-nÃ©l kisebb gyakorisÃ¡got, Ã­gy a kis elemszÃ¡m miatt a dÃ¶ntÃ©sÃ¼nk nem megbÃ­zhatÃ³.
 
 library(MASS)
 import = survey
 attach(import)
 
-#p értéke
+#p Ã©rtÃ©ke
 gyak.tablazat = table(Smoke, Exer)
 chisq.test(gyak.tablazat, correct = FALSE)
 #VAGY
 chisq.test(Smoke, Exer, correct = FALSE)
 
-#kontigencia táblázat
+#kontigencia tÃ¡blÃ¡zat
 chisq.test(gyak.tablazat, correct = FALSE)$expected
-#NEM AD WARNINGOT -> NINCS 5-NÉL KISSEBB
-#WARNINGOL -> VAN 5-NÉL KISSEBB
-#(nekem warningolt és látszik, hogy van kissebb szóval nem hiszem, hogy jó a feladat)
-#(gyakveztõl infóztam)
+#NEM AD WARNINGOT -> NINCS 5-NÃ‰L KISSEBB
+#WARNINGOL -> VAN 5-NÃ‰L KISSEBB
+#(nekem warningolt Ã©s lÃ¡tszik, hogy van kissebb szÃ³val nem hiszem, hogy jÃ³ a feladat)
+#(gyakveztÅ‘l infÃ³ztam)
 
-#Helyes válasz:
-#  Az elsõ állítás igaz, a második hamis.
+#Helyes vÃ¡lasz:
+#  Az elsÅ‘ Ã¡llÃ­tÃ¡s igaz, a mÃ¡sodik hamis.
 
 
 
-#Olvassuk be az airquality adatbázist. Vizsgáljuk az ózon mennyisége (Ozone) és a hõmérséklet (Temp) közötti kapcsolatot. 
-#Írjuk fel az ózonmennyiséget a hõmérséklet exponenciális függvényeként Ozone = exp(a + b*Temp) alakban. 
-#Várhatóan mekkora lesz az ózonmennyiség 80 °F hõmérséklet esetén?
+#Olvassuk be az airquality adatbÃ¡zist. VizsgÃ¡ljuk az Ã³zon mennyisÃ©ge (Ozone) Ã©s a hÅ‘mÃ©rsÃ©klet (Temp) kÃ¶zÃ¶tti kapcsolatot. 
+#Ãrjuk fel az Ã³zonmennyisÃ©get a hÅ‘mÃ©rsÃ©klet exponenciÃ¡lis fÃ¼ggvÃ©nyekÃ©nt Ozone = exp(a + b*Temp) alakban. 
+#VÃ¡rhatÃ³an mekkora lesz az Ã³zonmennyisÃ©g 80 Â°F hÅ‘mÃ©rsÃ©klet esetÃ©n?
 
 import = airquality
 attach(import)
 plot(Ozone ~ Temp)
 model = lm(log(Ozone) ~ Temp)
 summary(model)
-# Mi a regressziós görbe egyenlete? 
+# Mi a regressziÃ³s gÃ¶rbe egyenlete? 
 # Ozone = exp(a + b*Temp)
 a = model$coefficient[1]
 b = model$coefficient[2]
@@ -48,12 +48,12 @@ curve(f, add = TRUE)
 f(80)
 #summary(model)$r.squared
 
-#Megoldás: 35,24238 ± 1%
+#MegoldÃ¡s: 35,24238 Â± 1%
 
 
-#Olvassuk be az airquality adatbázist. Vizsgáljuk az ózon mennyisége (Ozone) és a hõmérséklet (Temp) közötti kapcsolatot. 
-#Írjuk fel az ózonmennyiséget a hõmérséklet lineáris függvényeként. A hõmérséklet hány százalékban magyarázza meg az ózonmennyiséget? 
-#Százalékjel nélkül adjuk meg.
+#Olvassuk be az airquality adatbÃ¡zist. VizsgÃ¡ljuk az Ã³zon mennyisÃ©ge (Ozone) Ã©s a hÅ‘mÃ©rsÃ©klet (Temp) kÃ¶zÃ¶tti kapcsolatot. 
+#Ãrjuk fel az Ã³zonmennyisÃ©get a hÅ‘mÃ©rsÃ©klet lineÃ¡ris fÃ¼ggvÃ©nyekÃ©nt. A hÅ‘mÃ©rsÃ©klet hÃ¡ny szÃ¡zalÃ©kban magyarÃ¡zza meg az Ã³zonmennyisÃ©get? 
+#SzÃ¡zalÃ©kjel nÃ©lkÃ¼l adjuk meg.
 
 import = airquality
 attach(import)
@@ -62,39 +62,39 @@ summary(model)
 
 #Multiple R-squared:  0.4877
 
-#Megoldás: 48,77 ± 1%
+#MegoldÃ¡s: 48,77 Â± 1%
 
 
-#Olvassuk be az airquality adatbázist. Vizsgáljuk az ózon mennyisége (Ozone) és a hõmérséklet (Temp) közötti kapcsolatot. 
-#Írjuk fel az ózonmennyiséget a hõmérséklet lineáris függvényeként. Adjuk meg az egyenes y-tengelymetszetének becslését.
+#Olvassuk be az airquality adatbÃ¡zist. VizsgÃ¡ljuk az Ã³zon mennyisÃ©ge (Ozone) Ã©s a hÅ‘mÃ©rsÃ©klet (Temp) kÃ¶zÃ¶tti kapcsolatot. 
+#Ãrjuk fel az Ã³zonmennyisÃ©get a hÅ‘mÃ©rsÃ©klet lineÃ¡ris fÃ¼ggvÃ©nyekÃ©nt. Adjuk meg az egyenes y-tengelymetszetÃ©nek becslÃ©sÃ©t.
 
 import = airquality
 attach(import)
 model = lm(Ozone ~ Temp)
 summary(model)
-# Ábrázoljuk a regressziós egyenest, és adjuk meg az egyenletét!  
+# ÃbrÃ¡zoljuk a regressziÃ³s egyenest, Ã©s adjuk meg az egyenletÃ©t!  
 abline(model)
 (tengelymetszet = model$coefficient[1])
 
-#Megoldás: -146,9955 ± 1%
+#MegoldÃ¡s: -146,9955 Â± 1%
 
 
-#Olvassuk be az airquality adatbázist. Vizsgáljuk az ózon mennyisége (Ozone) és a hõmérséklet (Temp) közötti kapcsolatot. 
-#Írjuk fel az ózonmennyiséget a hõmérséklet lineáris függvényeként. Adjuk meg az egyenes meredekségének becslését.
+#Olvassuk be az airquality adatbÃ¡zist. VizsgÃ¡ljuk az Ã³zon mennyisÃ©ge (Ozone) Ã©s a hÅ‘mÃ©rsÃ©klet (Temp) kÃ¶zÃ¶tti kapcsolatot. 
+#Ãrjuk fel az Ã³zonmennyisÃ©get a hÅ‘mÃ©rsÃ©klet lineÃ¡ris fÃ¼ggvÃ©nyekÃ©nt. Adjuk meg az egyenes meredeksÃ©gÃ©nek becslÃ©sÃ©t.
 
 import = airquality
 attach(import)
 model = lm(Ozone ~ Temp)
 summary(model)
-# Ábrázoljuk a regressziós egyenest, és adjuk meg az egyenletét!  
+# ÃbrÃ¡zoljuk a regressziÃ³s egyenest, Ã©s adjuk meg az egyenletÃ©t!  
 abline(model)
 (meredekseg = model$coefficient[2])
 
-#Megoldás: 2,4287 ± 1%
+#MegoldÃ¡s: 2,4287 Â± 1%
 
 
-#Olvassuk be az airquality adatbázist. Vizsgáljuk az ózon mennyisége (Ozone) és a hõmérséklet (Temp) közötti kapcsolatot. 
-#Írjuk fel az ózonmennyiséget a hõmérséklet exponenciális függvényeként Ozone = exp(a + b*Temp) alakban. Adjuk meg a b együttható becslését.
+#Olvassuk be az airquality adatbÃ¡zist. VizsgÃ¡ljuk az Ã³zon mennyisÃ©ge (Ozone) Ã©s a hÅ‘mÃ©rsÃ©klet (Temp) kÃ¶zÃ¶tti kapcsolatot. 
+#Ãrjuk fel az Ã³zonmennyisÃ©get a hÅ‘mÃ©rsÃ©klet exponenciÃ¡lis fÃ¼ggvÃ©nyekÃ©nt Ozone = exp(a + b*Temp) alakban. Adjuk meg a b egyÃ¼tthatÃ³ becslÃ©sÃ©t.
 
 import = airquality
 attach(import)
@@ -103,11 +103,11 @@ model = lm(log(Ozone) ~ Temp)
 b = model$coefficient[2]
 b
 
-#Megoldás: 0,06750 ± 1%
+#MegoldÃ¡s: 0,06750 Â± 1%
 
 
-#Olvassuk be az airquality adatbázist. Vizsgáljuk az ózon mennyisége (Ozone) és a hõmérséklet (Temp) közötti kapcsolatot. 
-#Írjuk fel az ózonmennyiséget a hõmérséklet exponenciális függvényeként Ozone = exp(a + b*Temp) alakban. Adjuk meg az a együttható becslését.
+#Olvassuk be az airquality adatbÃ¡zist. VizsgÃ¡ljuk az Ã³zon mennyisÃ©ge (Ozone) Ã©s a hÅ‘mÃ©rsÃ©klet (Temp) kÃ¶zÃ¶tti kapcsolatot. 
+#Ãrjuk fel az Ã³zonmennyisÃ©get a hÅ‘mÃ©rsÃ©klet exponenciÃ¡lis fÃ¼ggvÃ©nyekÃ©nt Ozone = exp(a + b*Temp) alakban. Adjuk meg az a egyÃ¼tthatÃ³ becslÃ©sÃ©t.
 
 import = airquality
 attach(import)
@@ -116,22 +116,22 @@ model = lm(log(Ozone) ~ Temp)
 a = model$coefficient[1]
 a
 
-#Megoldás: -1,83797 ± 1%
+#MegoldÃ¡s: -1,83797 Â± 1%
 
 
-#Olvassuk be a chickwts adatbázist. Teszteljük 5%-os szignifikancia szinten azt a nullhipotézist, hogy a csirkék átlagos tömege (weight) 
-#független a táplálék típusától (feed).
+#Olvassuk be a chickwts adatbÃ¡zist. TeszteljÃ¼k 5%-os szignifikancia szinten azt a nullhipotÃ©zist, hogy a csirkÃ©k Ã¡tlagos tÃ¶mege (weight) 
+#fÃ¼ggetlen a tÃ¡plÃ¡lÃ©k tÃ­pusÃ¡tÃ³l (feed).
 #p < 0,05.
-#A csirkék átlagos tömege független a táplálék típusától. 
+#A csirkÃ©k Ã¡tlagos tÃ¶mege fÃ¼ggetlen a tÃ¡plÃ¡lÃ©k tÃ­pusÃ¡tÃ³l. 
 
 import = chickwts
 attach(import)
 
-#p értéke
+#p Ã©rtÃ©ke
 chisq.test(weight, feed, correct = FALSE)
 
-#p < 0.05 tehát elutasítjuk, függ
-#Ha p kissebb mint a szignifikancia szint, akkor a hipotézist elutasítjuk.
+#p < 0.05 tehÃ¡t elutasÃ­tjuk, fÃ¼gg
+#Ha p kissebb mint a szignifikancia szint, akkor a hipotÃ©zist elutasÃ­tjuk.
 
-#Helyes válasz:
-#  Az elsõ állítás igaz, a második hamis.
+#Helyes vÃ¡lasz:
+#  Az elsÅ‘ Ã¡llÃ­tÃ¡s igaz, a mÃ¡sodik hamis.

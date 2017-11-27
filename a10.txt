@@ -1,34 +1,34 @@
-# ===============================#
+ï»¿# ===============================#
 # Alkalmazott statisztika        #
-# Diszkriminancia-analízis       #
-# Klaszter-analízis              #
+# Diszkriminancia-analÃ­zis       #
+# Klaszter-analÃ­zis              #
 # ===============================#
   
-# Olvassuk be a beépített "iris" állomány tartalmát az 'input' nevû
-# táblázatba. Az állomány három Kanadában megtalálható íriszfajtától 
-# származó megfigyeléseket tartalmaz.
-# Sepal.Length: csészelevél hossza (cm)
-# Sepal.Width: csészelevél szélessége (cm)
-# Petal.Length: sziromlevél hossza (cm)
-# Petal.Width: sziromlevél szélessége (cm)
-# Species: a növény fajtája
+# Olvassuk be a beÃ©pÃ­tett "iris" Ã¡llomÃ¡ny tartalmÃ¡t az 'input' nevÅ±
+# tÃ¡blÃ¡zatba. Az Ã¡llomÃ¡ny hÃ¡rom KanadÃ¡ban megtalÃ¡lhatÃ³ Ã­riszfajtÃ¡tÃ³l 
+# szÃ¡rmazÃ³ megfigyelÃ©seket tartalmaz.
+# Sepal.Length: csÃ©szelevÃ©l hossza (cm)
+# Sepal.Width: csÃ©szelevÃ©l szÃ©lessÃ©ge (cm)
+# Petal.Length: sziromlevÃ©l hossza (cm)
+# Petal.Width: sziromlevÃ©l szÃ©lessÃ©ge (cm)
+# Species: a nÃ¶vÃ©ny fajtÃ¡ja
 
 input = data.frame(iris)
 attach(input)
 
-# Töltsük be a 'MASS' csomagot.
+# TÃ¶ltsÃ¼k be a 'MASS' csomagot.
 
 library(MASS)
 
-# Ábrázoljuk a változókat páronként koordináta rendszerben.
+# ÃbrÃ¡zoljuk a vÃ¡ltozÃ³kat pÃ¡ronkÃ©nt koordinÃ¡ta rendszerben.
 
 plot(input[1:4], col = c("red", "blue", "green")[Species])
 levels(Species)
 
-# A három közül melyik az a fajta, mely jól elkülönül a másik kettõtõl?
+# A hÃ¡rom kÃ¶zÃ¼l melyik az a fajta, mely jÃ³l elkÃ¼lÃ¶nÃ¼l a mÃ¡sik kettÅ‘tÅ‘l?
 
-# Végezzünk diszkriminancia-analízist a mintára a négy változó
-# alkalmazásával, és határozzuk meg a diszkriminancia függvények egyenletét.
+# VÃ©gezzÃ¼nk diszkriminancia-analÃ­zist a mintÃ¡ra a nÃ©gy vÃ¡ltozÃ³
+# alkalmazÃ¡sÃ¡val, Ã©s hatÃ¡rozzuk meg a diszkriminancia fÃ¼ggvÃ©nyek egyenletÃ©t.
 
 model = lda(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width)
 model
@@ -37,9 +37,9 @@ mean(Sepal.Width)
 mean(Petal.Length)
 mean(Petal.Width)
 
-# Határozzuk meg, hogy az egyes megfigyeléseknek mik a koordinátáik
-# a diszkriminancia függvények által meghatározott koordináta-rendszerben.
-# Határozzuk meg a három csoportközéppont koordinátáját is.
+# HatÃ¡rozzuk meg, hogy az egyes megfigyelÃ©seknek mik a koordinÃ¡tÃ¡ik
+# a diszkriminancia fÃ¼ggvÃ©nyek Ã¡ltal meghatÃ¡rozott koordinÃ¡ta-rendszerben.
+# HatÃ¡rozzuk meg a hÃ¡rom csoportkÃ¶zÃ©ppont koordinÃ¡tÃ¡jÃ¡t is.
 
 pred = data.frame(predict(model))
 check.ld1 = scale(input[1:4], center = T, scale = F) %*% model$scaling[, 1]
@@ -50,9 +50,9 @@ sum(round(check.ld2, 8) != round(pred$x.LD2, 8))
 centers.LD1 = tapply(pred$x.LD1, Species, mean)
 centers.LD2 = tapply(pred$x.LD2, Species, mean)
 
-# Ábrázoljuk a fajtát, illetve az elõrejelzett csoportbesorolást a 
-# diszkriminancia függvények által meghatározott koordinátarendszerben.
-# Mindkét ábrára vegyük fel a tartományok középpontjait is.
+# ÃbrÃ¡zoljuk a fajtÃ¡t, illetve az elÅ‘rejelzett csoportbesorolÃ¡st a 
+# diszkriminancia fÃ¼ggvÃ©nyek Ã¡ltal meghatÃ¡rozott koordinÃ¡tarendszerben.
+# MindkÃ©t Ã¡brÃ¡ra vegyÃ¼k fel a tartomÃ¡nyok kÃ¶zÃ©ppontjait is.
 
 plot(pred$x.LD1, pred$x.LD2, col = c("red", "blue", "green")[Species], asp = 1)
 text(centers.LD1, centers.LD2, col = "black", labels = c("x","x","x"))
@@ -60,42 +60,42 @@ text(centers.LD1, centers.LD2, col = "black", labels = c("x","x","x"))
 plot(pred$x.LD1, pred$x.LD2, col = c("red", "blue", "green")[pred$class], asp = 1)
 text(centers.LD1, centers.LD2, col = "black", labels = c("x","x","x"))
 
-# Milyen hatékonysággal mûködött az algoritmus? Mondjunk példát olyan
-# megfigyelésre, mely rosszul lett besorolva. Ezen növény mekkora
-# valószínûséggel került a modell által besorolt csoportba?
+# Milyen hatÃ©konysÃ¡ggal mÅ±kÃ¶dÃ¶tt az algoritmus? Mondjunk pÃ©ldÃ¡t olyan
+# megfigyelÃ©sre, mely rosszul lett besorolva. Ezen nÃ¶vÃ©ny mekkora
+# valÃ³szÃ­nÅ±sÃ©ggel kerÃ¼lt a modell Ã¡ltal besorolt csoportba?
 
 table(Species, pred$class, dnn = c("original", "predicted"))
 mean(Species == pred$class)
 pred
-# Olvassuk be az 'irisz2.txt' állományt, mely egy ismeretlen fajtájú
-# növény adatait tartalmazza. Mely fajtába sorolnánk be ezt a
-# növényt? Mekkora valószínûséggel került ebbe a csoportba?
-# Ábrázoljuk a növényt az elõzõ ábrán.
+# Olvassuk be az 'irisz2.txt' Ã¡llomÃ¡nyt, mely egy ismeretlen fajtÃ¡jÃº
+# nÃ¶vÃ©ny adatait tartalmazza. Mely fajtÃ¡ba sorolnÃ¡nk be ezt a
+# nÃ¶vÃ©nyt? Mekkora valÃ³szÃ­nÅ±sÃ©ggel kerÃ¼lt ebbe a csoportba?
+# ÃbrÃ¡zoljuk a nÃ¶vÃ©nyt az elÅ‘zÅ‘ Ã¡brÃ¡n.
 
 input2 = read.table("irisz2.txt", header = TRUE)
 pred2 = data.frame(predict(model, input2))
-text(pred2$x.LD1, pred2$x.LD2, labels = c("ÚJ"))
+text(pred2$x.LD1, pred2$x.LD2, labels = c("ÃšJ"))
 
 detach(input)
 
 # =================================================================================
 
-# Egy bank azt szeretné megjósolni, hogy az ügyfelek megfelelõen fogják-e törleszteni 
-# a felvett hitelt vagy nem: 4 jellemzõ alapján szeretné eldönteni az új ügyfelekrõl, 
-# hogy jó vagy rossz adósok lesznek-e. 
+# Egy bank azt szeretnÃ© megjÃ³solni, hogy az Ã¼gyfelek megfelelÅ‘en fogjÃ¡k-e tÃ¶rleszteni 
+# a felvett hitelt vagy nem: 4 jellemzÅ‘ alapjÃ¡n szeretnÃ© eldÃ¶nteni az Ãºj Ã¼gyfelekrÅ‘l, 
+# hogy jÃ³ vagy rossz adÃ³sok lesznek-e. 
 
-# Olvassuk be a bankloan.csv adatbázist, mely 499 korábbi ügyfél adatait tartalmazza:
-#	default: 0 = jó adós, 1 = rossz adós
-#	employ: a jelenlegi munkahelyén eltöltött évek száma
-#	address: a jelenlegi lakhelyén eltöltött évek száma
-#	debtinc: adósság / jövedelem arány százalékos formában
-#	creddebt: folyószámla hitel (ezer dollár)
+# Olvassuk be a bankloan.csv adatbÃ¡zist, mely 499 korÃ¡bbi Ã¼gyfÃ©l adatait tartalmazza:
+#	default: 0 = jÃ³ adÃ³s, 1 = rossz adÃ³s
+#	employ: a jelenlegi munkahelyÃ©n eltÃ¶ltÃ¶tt Ã©vek szÃ¡ma
+#	address: a jelenlegi lakhelyÃ©n eltÃ¶ltÃ¶tt Ã©vek szÃ¡ma
+#	debtinc: adÃ³ssÃ¡g / jÃ¶vedelem arÃ¡ny szÃ¡zalÃ©kos formÃ¡ban
+#	creddebt: folyÃ³szÃ¡mla hitel (ezer dollÃ¡r)
 
 adat = read.csv2("bankloan.csv")
 attach(adat)
 
-# Végezzünk diszkriminancia-analízist a mintára. 
-# Adjuk meg a diszkriminancia függvény egyenletét.
+# VÃ©gezzÃ¼nk diszkriminancia-analÃ­zist a mintÃ¡ra. 
+# Adjuk meg a diszkriminancia fÃ¼ggvÃ©ny egyenletÃ©t.
 
 model = lda(default ~ employ + address + debtinc + creddebt)
 model
@@ -104,17 +104,17 @@ mean(address)
 mean(debtinc)
 mean(creddebt)
 
-# Milyen hatékonysággal mûködött az algoritmus, 
-# vagyis mekkora a helyes besorolások aránya?
+# Milyen hatÃ©konysÃ¡ggal mÅ±kÃ¶dÃ¶tt az algoritmus, 
+# vagyis mekkora a helyes besorolÃ¡sok arÃ¡nya?
 
 pred = data.frame(predict(model))
 table(default, pred$class, dnn = c("original", "predicted"))
 mean(default == pred$class)
 
-# Olvassuk be a bankloan2.csv állományt, mely leendõ ügyfelek 
-# adatait tartalmazza. Milyen elõrejelzést tudunk adni, a leendõ
-# ügyfelek közül ki lesz jó, és ki lesz rossz adós? A megfigyelések
-# mekkora valószínûséggel kerültek a modell által jósolt csoportba?
+# Olvassuk be a bankloan2.csv Ã¡llomÃ¡nyt, mely leendÅ‘ Ã¼gyfelek 
+# adatait tartalmazza. Milyen elÅ‘rejelzÃ©st tudunk adni, a leendÅ‘
+# Ã¼gyfelek kÃ¶zÃ¼l ki lesz jÃ³, Ã©s ki lesz rossz adÃ³s? A megfigyelÃ©sek
+# mekkora valÃ³szÃ­nÅ±sÃ©ggel kerÃ¼ltek a modell Ã¡ltal jÃ³solt csoportba?
 
 adat2 = read.csv2("bankloan2.csv")
 pred2 = data.frame(predict(model, adat2))
@@ -124,51 +124,51 @@ detach(adat)
 # =================================================================================
 # =================================================================================
 
-# Olvassuk be az europa.txt állomány tartalmát az 'adat' nevû
-# táblázatba.
+# Olvassuk be az europa.txt Ã¡llomÃ¡ny tartalmÃ¡t az 'adat' nevÅ±
+# tÃ¡blÃ¡zatba.
 
 adat = read.table("europa.txt", header = TRUE)
 attach(adat)
 
-# Ábrázoljuk a népsûrûséget a népesség függvényeként.
+# ÃbrÃ¡zoljuk a nÃ©psÅ±rÅ±sÃ©get a nÃ©pessÃ©g fÃ¼ggvÃ©nyekÃ©nt.
 
 sorszam = c(1:length(orszag))
 plot(nepesseg, nepsuruseg, type = "n")
 text(nepesseg, nepsuruseg, sorszam)
 
-# Ha csoportosítani szeretnénk az országokat ezen két változó szempontjából, 
-# akkor hány csoportot (klasztert) lenne érdemes kialakítani?
+# Ha csoportosÃ­tani szeretnÃ©nk az orszÃ¡gokat ezen kÃ©t vÃ¡ltozÃ³ szempontjÃ¡bÃ³l, 
+# akkor hÃ¡ny csoportot (klasztert) lenne Ã©rdemes kialakÃ­tani?
 
-# A népesség és a népsûrûség alapján végezzünk klaszteranalízist
-# az adatsoron a legközelebbi szomszéd (single-linkage) módszert alkalmazva.
+# A nÃ©pessÃ©g Ã©s a nÃ©psÅ±rÅ±sÃ©g alapjÃ¡n vÃ©gezzÃ¼nk klaszteranalÃ­zist
+# az adatsoron a legkÃ¶zelebbi szomszÃ©d (single-linkage) mÃ³dszert alkalmazva.
 
 tavolsagmatrix = dist(adat[2:3])
 model = hclust(tavolsagmatrix, method = "single")
 plot(model)
 
-# A dendrogram alapján hány klasztert érdemes definiálni? Ebben az esetben
-# hány ország került az egyes klaszterekbe? Ábrázoljuk a klaszterbesorolást.
+# A dendrogram alapjÃ¡n hÃ¡ny klasztert Ã©rdemes definiÃ¡lni? Ebben az esetben
+# hÃ¡ny orszÃ¡g kerÃ¼lt az egyes klaszterekbe? ÃbrÃ¡zoljuk a klaszterbesorolÃ¡st.
 
 rect.hclust(model, 3)
-model$merge # milyen sorrendben történt a klaszterek összevonása
-model$height # az összevonás milyen távolságnál történt
+model$merge # milyen sorrendben tÃ¶rtÃ©nt a klaszterek Ã¶sszevonÃ¡sa
+model$height # az Ã¶sszevonÃ¡s milyen tÃ¡volsÃ¡gnÃ¡l tÃ¶rtÃ©nt
 klaszter = cutree(model, 3)
 plot(nepesseg, nepsuruseg, type = "n")
 text(nepesseg, nepsuruseg, sorszam, col = klaszter)
 
-# Ha a változók nagyon eltérõ skálán mozognak, akkor célszerû õket
-# a klaszteranalízis végrehajtása elõtt standardizálni:
+# Ha a vÃ¡ltozÃ³k nagyon eltÃ©rÅ‘ skÃ¡lÃ¡n mozognak, akkor cÃ©lszerÅ± Å‘ket
+# a klaszteranalÃ­zis vÃ©grehajtÃ¡sa elÅ‘tt standardizÃ¡lni:
 
 nepesseg_st = scale(nepesseg)
 nepsuruseg_st = scale(nepsuruseg)
 
 tavolsagmatrix = dist(cbind(nepesseg_st, nepsuruseg_st))
 
-# Hierarchikus klaszter-analízis a legközelebbi szomszéd távolság módszerével:
+# Hierarchikus klaszter-analÃ­zis a legkÃ¶zelebbi szomszÃ©d tÃ¡volsÃ¡g mÃ³dszerÃ©vel:
 
 model = hclust(tavolsagmatrix, method = "single")
 plot(model)
-rect.hclust(model, 3) # Az országok csoportosítása 3 csoport kialakítása esetén
+rect.hclust(model, 3) # Az orszÃ¡gok csoportosÃ­tÃ¡sa 3 csoport kialakÃ­tÃ¡sa esetÃ©n
 model$merge
 magassag = model$height 
 print(magassag, digits = 3)
@@ -177,11 +177,11 @@ klaszter = cutree(model, 3)
 plot(nepesseg_st, nepsuruseg_st, type = "n")
 text(nepesseg_st, nepsuruseg_st, sorszam, col = klaszter)
 
-# A legközelebbi szomszéd módszernek (single-linkage) az az elõnye, hogy jól szeparált
-# klaszterek alakulnak ki, de az a hátránya, hogy ezek a csoportok nagyon
-# nagyok is lehetnek, mint a most vizsgált példában.
+# A legkÃ¶zelebbi szomszÃ©d mÃ³dszernek (single-linkage) az az elÅ‘nye, hogy jÃ³l szeparÃ¡lt
+# klaszterek alakulnak ki, de az a hÃ¡trÃ¡nya, hogy ezek a csoportok nagyon
+# nagyok is lehetnek, mint a most vizsgÃ¡lt pÃ©ldÃ¡ban.
 
-# Hierarchikus klaszter-analízis a legtávolabbi szomszéd módszer alkalmazásával:
+# Hierarchikus klaszter-analÃ­zis a legtÃ¡volabbi szomszÃ©d mÃ³dszer alkalmazÃ¡sÃ¡val:
 
 model = hclust(tavolsagmatrix, method = "complete")
 plot(model)
@@ -190,10 +190,10 @@ klaszter = cutree(model, 3)
 plot(nepesseg_st, nepsuruseg_st, type = "n")
 text(nepesseg_st, nepsuruseg_st, sorszam, col = klaszter)
 
-# A legtávolabbi szomszéd (complete linkage) módszer kevésbé szeparált, 
-# de kis méretû klasztereket eredményez.
+# A legtÃ¡volabbi szomszÃ©d (complete linkage) mÃ³dszer kevÃ©sbÃ© szeparÃ¡lt, 
+# de kis mÃ©retÅ± klasztereket eredmÃ©nyez.
 
-# Hierarchikus klaszter-analízis az átlagos távolság módszerrel:
+# Hierarchikus klaszter-analÃ­zis az Ã¡tlagos tÃ¡volsÃ¡g mÃ³dszerrel:
 
 model = hclust(tavolsagmatrix, method = "average")
 plot(model)
@@ -202,43 +202,43 @@ klaszter = cutree(model, 4)
 plot(nepesseg_st, nepsuruseg_st, type = "n")
 text(nepesseg_st, nepsuruseg_st, sorszam, col = klaszter)
 
-# A legközelebbi és a legtávolabbi szomszéd két szélsõséges klaszterezési
-# eljárás bizonyos elõnyökkel és hátrányokkal. A két szélsõség közötti
-# középutat jelent az átlagos távolság (average linkage) és a középpont
-# távolság (centroid clustering) módszer. 
+# A legkÃ¶zelebbi Ã©s a legtÃ¡volabbi szomszÃ©d kÃ©t szÃ©lsÅ‘sÃ©ges klaszterezÃ©si
+# eljÃ¡rÃ¡s bizonyos elÅ‘nyÃ¶kkel Ã©s hÃ¡trÃ¡nyokkal. A kÃ©t szÃ©lsÅ‘sÃ©g kÃ¶zÃ¶tti
+# kÃ¶zÃ©putat jelent az Ã¡tlagos tÃ¡volsÃ¡g (average linkage) Ã©s a kÃ¶zÃ©ppont
+# tÃ¡volsÃ¡g (centroid clustering) mÃ³dszer. 
 
 detach(adat)
 
 # =================================================================================
 
-# Olvassuk be a csoki.csv állomány tartalmát az 'adat' nevû
-# táblázatba. Összesen tíz csokimárkát ítéltek meg a személyek a 
-# csoki nagysága, krémességének és töménységének tekintetében. 
-# Vizsgáljuk meg, hogy mely csokoládék állnak a vizsgálati személyek 
-# szerint közel egymáshoz. 
+# Olvassuk be a csoki.csv Ã¡llomÃ¡ny tartalmÃ¡t az 'adat' nevÅ±
+# tÃ¡blÃ¡zatba. Ã–sszesen tÃ­z csokimÃ¡rkÃ¡t Ã­tÃ©ltek meg a szemÃ©lyek a 
+# csoki nagysÃ¡ga, krÃ©messÃ©gÃ©nek Ã©s tÃ¶mÃ©nysÃ©gÃ©nek tekintetÃ©ben. 
+# VizsgÃ¡ljuk meg, hogy mely csokolÃ¡dÃ©k Ã¡llnak a vizsgÃ¡lati szemÃ©lyek 
+# szerint kÃ¶zel egymÃ¡shoz. 
 
-adat = read.csv("csoki.csv") # vesszõvel elválasztott adatbázis
+adat = read.csv("csoki.csv") # vesszÅ‘vel elvÃ¡lasztott adatbÃ¡zis
 attach(adat)
 
-# Távolságmátrix kiszámítása:
+# TÃ¡volsÃ¡gmÃ¡trix kiszÃ¡mÃ­tÃ¡sa:
 
 tavolsagmatrix = dist(adat[2:4]) 
 
-# Hierarchikus klaszteranalízis a legközelebbi szomszéd módszer alkalmazásával:
+# Hierarchikus klaszteranalÃ­zis a legkÃ¶zelebbi szomszÃ©d mÃ³dszer alkalmazÃ¡sÃ¡val:
 
 model = hclust(tavolsagmatrix, method = "single")
 plot(model)
 
-rect.hclust(model, 2) # a csokik csoportosítása két csoport kialakítása esetén
-model$merge # a csokik összevonásának menete
-magassag = model$height # az összevont csoportok közötti távolságok a fenti lépések során
+rect.hclust(model, 2) # a csokik csoportosÃ­tÃ¡sa kÃ©t csoport kialakÃ­tÃ¡sa esetÃ©n
+model$merge # a csokik Ã¶sszevonÃ¡sÃ¡nak menete
+magassag = model$height # az Ã¶sszevont csoportok kÃ¶zÃ¶tti tÃ¡volsÃ¡gok a fenti lÃ©pÃ©sek sorÃ¡n
 print(magassag, digits = 3)
 
-# Láthatjuk, hogy alapvetõen két nagy csoportja van a vizsgált 
-# csokoládéknak. Az egyikbe tartoznak a táblás csokoládék 
-# (Tibi, Milka és a Boci), míg a másikba a szeletes csokik. 
-# Az utóbbiba vonta be a módszer a mûzliszeletet is, bár 
-# meglehetõsen távol van a többi csokoládétól.
+# LÃ¡thatjuk, hogy alapvetÅ‘en kÃ©t nagy csoportja van a vizsgÃ¡lt 
+# csokolÃ¡dÃ©knak. Az egyikbe tartoznak a tÃ¡blÃ¡s csokolÃ¡dÃ©k 
+# (Tibi, Milka Ã©s a Boci), mÃ­g a mÃ¡sikba a szeletes csokik. 
+# Az utÃ³bbiba vonta be a mÃ³dszer a mÅ±zliszeletet is, bÃ¡r 
+# meglehetÅ‘sen tÃ¡vol van a tÃ¶bbi csokolÃ¡dÃ©tÃ³l.
 
 detach(adat)
 

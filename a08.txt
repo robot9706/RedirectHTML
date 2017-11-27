@@ -1,50 +1,50 @@
-# ===============================#
+ï»¿# ===============================#
 # Alkalmazott statisztika        #
-# Regresszióanalízis             #
+# RegressziÃ³analÃ­zis             #
 # ===============================#
 
-# Olvassuk be a cars.txt állomány tartalmát az 'input' nevû táblázatba!
-# cars.txt: Az amerikai piacon forgalmazott néhány autótípus fontosabb paraméterei.
-# MANUFACTURER: az autó típusa
-# MODEL: az autó modellje
-# COUNTRY: származási ország
-# VOL: az utastér térfogata (köbláb)
-# HP: teljesítmény (lóerõ)
-# SP: végsebesség (mérföld/óra)
-# MPG: fogyasztás (mérföld/gallon)
-# WT: a jármû tömege (50 font)
+# Olvassuk be a cars.txt Ã¡llomÃ¡ny tartalmÃ¡t az 'input' nevÅ± tÃ¡blÃ¡zatba!
+# cars.txt: Az amerikai piacon forgalmazott nÃ©hÃ¡ny autÃ³tÃ­pus fontosabb paramÃ©terei.
+# MANUFACTURER: az autÃ³ tÃ­pusa
+# MODEL: az autÃ³ modellje
+# COUNTRY: szÃ¡rmazÃ¡si orszÃ¡g
+# VOL: az utastÃ©r tÃ©rfogata (kÃ¶blÃ¡b)
+# HP: teljesÃ­tmÃ©ny (lÃ³erÅ‘)
+# SP: vÃ©gsebessÃ©g (mÃ©rfÃ¶ld/Ã³ra)
+# MPG: fogyasztÃ¡s (mÃ©rfÃ¶ld/gallon)
+# WT: a jÃ¡rmÅ± tÃ¶mege (50 font)
 
 input = read.table("cars.txt", header = TRUE)
 attach(input)
 
 # ===============================================================================
 
-# Vizsgáljuk meg, hogy függ-e a végsebesség a teljesítménytõl!
-# Ábrázoljuk a végsebességet a teljesítmény függvényeként!
+# VizsgÃ¡ljuk meg, hogy fÃ¼gg-e a vÃ©gsebessÃ©g a teljesÃ­tmÃ©nytÅ‘l!
+# ÃbrÃ¡zoljuk a vÃ©gsebessÃ©get a teljesÃ­tmÃ©ny fÃ¼ggvÃ©nyekÃ©nt!
 plot(SP ~ HP)
-# Kérdezzük le a teljesítmény és a végsebesség korrelációját!
+# KÃ©rdezzÃ¼k le a teljesÃ­tmÃ©ny Ã©s a vÃ©gsebessÃ©g korrelÃ¡ciÃ³jÃ¡t!
 cor.test(HP, SP, method = "pearson")
-# Lineáris regresszió segítségével írjuk fel a végsebességet a
-# teljesítmény lineáris függvényeként!
+# LineÃ¡ris regressziÃ³ segÃ­tsÃ©gÃ©vel Ã­rjuk fel a vÃ©gsebessÃ©get a
+# teljesÃ­tmÃ©ny lineÃ¡ris fÃ¼ggvÃ©nyekÃ©nt!
 model = lm(SP ~ HP)
 summary(model)
-# Ábrázoljuk a regressziós egyenest, és adjuk meg az egyenletét!  
+# ÃbrÃ¡zoljuk a regressziÃ³s egyenest, Ã©s adjuk meg az egyenletÃ©t!  
 abline(model)
 (tengelymetszet = model$coefficient[1])
 (meredekseg = model$coefficient[2])
 f = function(x) tengelymetszet + meredekseg*x
 curve(f, add = TRUE)
-# Mennyire jól illeszkednek a megfigyelések az egyenesre?
-# Az autók teljesítménye hány százalékban magyarázza meg a végsebességet?
+# Mennyire jÃ³l illeszkednek a megfigyelÃ©sek az egyenesre?
+# Az autÃ³k teljesÃ­tmÃ©nye hÃ¡ny szÃ¡zalÃ©kban magyarÃ¡zza meg a vÃ©gsebessÃ©get?
 (det_egyutthato = summary(model)$r.squared)
-# Várhatóan mennyi egy 130 lóerõs autó végsebessége? 
+# VÃ¡rhatÃ³an mennyi egy 130 lÃ³erÅ‘s autÃ³ vÃ©gsebessÃ©ge? 
 f(130)
 pred.frame = data.frame(HP = 130)
 predict(model, newdata = pred.frame)
 
 # ===============================================================================
 
-# Mit kapunk, ha a végsebességet az utastér térfogatának függvényében vizsgáljuk?
+# Mit kapunk, ha a vÃ©gsebessÃ©get az utastÃ©r tÃ©rfogatÃ¡nak fÃ¼ggvÃ©nyÃ©ben vizsgÃ¡ljuk?
 plot(SP ~ VOL)
 cor.test(SP, VOL, method = "pearson")
 model = lm(SP ~ VOL)
@@ -56,33 +56,33 @@ curve(f, add = TRUE)
 
 # ===============================================================================
 
-# Elemezzük a fogyasztás és a tömeg kapcsolatát az elõzõ pontokban
-# bemutatott módon!
+# ElemezzÃ¼k a fogyasztÃ¡s Ã©s a tÃ¶meg kapcsolatÃ¡t az elÅ‘zÅ‘ pontokban
+# bemutatott mÃ³don!
 
 # ===============================================================================
 
-# Írjuk fel a jármûvek fogyasztását, mint a teljesítmény reciprokos függvénye!
+# Ãrjuk fel a jÃ¡rmÅ±vek fogyasztÃ¡sÃ¡t, mint a teljesÃ­tmÃ©ny reciprokos fÃ¼ggvÃ©nye!
 plot(MPG ~ HP)
 model = lm(MPG ~ I(1/HP))
 summary(model)
-# Mi a regressziós görbe egyenlete? 
+# Mi a regressziÃ³s gÃ¶rbe egyenlete? 
 # MPG = a + b/HP
 a = model$coefficient[1]
 b = model$coefficient[2]
 f = function(x) a + b/x
 curve(f, add = TRUE)
-# Várhatóan mennyit fogyaszt egy 130 lóerõs autó?
+# VÃ¡rhatÃ³an mennyit fogyaszt egy 130 lÃ³erÅ‘s autÃ³?
 f(130)
-# A modellünkben a teljesítmény hány százalékban magyarázza a fogyasztást?
+# A modellÃ¼nkben a teljesÃ­tmÃ©ny hÃ¡ny szÃ¡zalÃ©kban magyarÃ¡zza a fogyasztÃ¡st?
 summary(model)$r.squared
 
-# Ismételjük meg az elõzõ pontot azzal a változtatással, hogy most egy
-# exp(a + b*HP) exponenciális görbét illesszünk az adatsorra. 
-# Melyik modell biztosítja a jobb illeszkedést?
+# IsmÃ©teljÃ¼k meg az elÅ‘zÅ‘ pontot azzal a vÃ¡ltoztatÃ¡ssal, hogy most egy
+# exp(a + b*HP) exponenciÃ¡lis gÃ¶rbÃ©t illesszÃ¼nk az adatsorra. 
+# Melyik modell biztosÃ­tja a jobb illeszkedÃ©st?
 plot(MPG ~ HP)
 model = lm(log(MPG) ~ HP)
 summary(model)
-# Mi a regressziós görbe egyenlete? 
+# Mi a regressziÃ³s gÃ¶rbe egyenlete? 
 # MPG = exp(a + b*HP)
 a = model$coefficient[1]
 b = model$coefficient[2]
@@ -94,17 +94,17 @@ summary(model)$r.squared
 # ===============================================================================
 # ===============================================================================
 
-# Megjegyzés
-# Regressziós diagnosztika
-# 1. ábra: ha a modell megfelelõ, akkor a reziduumok a nulla körüli 
-# véletlen eltérések
-# 2. ábra: QQ-ábra a reziduumok normalitásának ellenõrzésére, a pontoknak
-# az egyenes mentén kell elhelyezkedniük
-# 3. ábra: ha nem látunk semmilyen tendenciát az ábrán, akkor feltételezhetjük
-# a reziduumok szórásának állandóságát
-# 4. ábra: torzító pontok (olyan pontok, melyek erõsen befolyásolják a
-# regressziós paraméterek becslését) detektálása: azok a pontok problémásak,
-# melyek az 1-es Cook-féle D-értéknek megfelelõ szaggatott vonalon kívül esnek
+# MegjegyzÃ©s
+# RegressziÃ³s diagnosztika
+# 1. Ã¡bra: ha a modell megfelelÅ‘, akkor a reziduumok a nulla kÃ¶rÃ¼li 
+# vÃ©letlen eltÃ©rÃ©sek
+# 2. Ã¡bra: QQ-Ã¡bra a reziduumok normalitÃ¡sÃ¡nak ellenÅ‘rzÃ©sÃ©re, a pontoknak
+# az egyenes mentÃ©n kell elhelyezkedniÃ¼k
+# 3. Ã¡bra: ha nem lÃ¡tunk semmilyen tendenciÃ¡t az Ã¡brÃ¡n, akkor feltÃ©telezhetjÃ¼k
+# a reziduumok szÃ³rÃ¡sÃ¡nak Ã¡llandÃ³sÃ¡gÃ¡t
+# 4. Ã¡bra: torzÃ­tÃ³ pontok (olyan pontok, melyek erÅ‘sen befolyÃ¡soljÃ¡k a
+# regressziÃ³s paramÃ©terek becslÃ©sÃ©t) detektÃ¡lÃ¡sa: azok a pontok problÃ©mÃ¡sak,
+# melyek az 1-es Cook-fÃ©le D-Ã©rtÃ©knek megfelelÅ‘ szaggatott vonalon kÃ­vÃ¼l esnek
 plot(model)
 
 
