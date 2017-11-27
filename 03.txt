@@ -1,0 +1,317 @@
+#KÖRNYEZETTÖRLÉS 
+rm(list=ls())
+#CONSOLE TÖRLÉSE
+#Ctrl+L
+
+#Az admission adatbázisban található GPA és GMAT pontszámok alapján szeretnénk megjósolni a fõiskolára 
+#való bekerülés valószínûségét (De = admit, notadmit, borderline). Az adatbázis letölthetõ a következõ címrõl:
+#  http://www.biz.uiowa.edu/faculty/jledolter/DataMining/admission.csv
+#Térjünk át egy olyan új koordinátarendszerre, melyben jól szétválnak a csoportok. 
+#Adjuk meg a (centralizált) GPA változó elsõ dimenzióhoz tartozó együtthatójának abszolút értékét.
+
+
+input = read.csv("admission.csv", header = TRUE)
+attach(input)
+#jól szétválasztjuk
+model = lda(De ~ GPA + GMAT)
+model
+
+#alapból centralizált
+
+#Coefficients of linear discriminants:
+#             LD1         LD2 <-DIMENZIÓK
+#GPA  5.008766354  1.87668220 <-GPA VÁLTOZÓ
+#GMAT 0.008568593 -0.01445106
+
+#Megoldás: 5,009 ± 1%
+
+#Az admission adatbázisban található GPA és GMAT pontszámok alapján szeretnénk megjósolni a fõiskolára 
+#való bekerülés valószínûségét (De = admit, notadmit, borderline). Az adatbázis letölthetõ a következõ címrõl:
+#  http://www.biz.uiowa.edu/faculty/jledolter/DataMining/admission.csv
+#Térjünk át egy olyan új koordinátarendszerre, melyben jól szétválnak a csoportok. 
+#Adjuk meg az elsõ megfigyelés x-koordinátáját ebben az új koordináta-rendszerben.
+
+
+input = read.csv("admission.csv", header = TRUE)
+attach(input)
+#jól szétválasztjuk
+model = lda(De ~ GPA + GMAT)
+pred = data.frame(predict(model))
+pred
+#elsõ megfigyelés = legelsõ sor
+#x koordináta x.LD1
+
+#Megoldás: 0,8485 ± 1%
+
+
+#Az admission adatbázisban található GPA és GMAT pontszámok alapján szeretnénk megjósolni a fõiskolára 
+#való bekerülés valószínûségét (De = admit, notadmit, borderline). Az adatbázis letölthetõ a következõ címrõl:
+#  http://www.biz.uiowa.edu/faculty/jledolter/DataMining/admission.csv
+#Soroljuk be a jelentkezõket az „admit”, „notadmit”, vagy „borderline” kategóriák valamelyikébe. 
+#Az esetek hány százalékában mûködött jól az algoritmus?
+
+input = read.csv("admission.csv", header = TRUE)
+attach(input)
+#jól szétválasztjuk
+model = lda(De ~ GPA + GMAT)
+pred = data.frame(predict(model))
+#table(De, pred$class, dnn = c("original", "predicted")) részletesen látjuk, mennyit sorol rosszul
+mean(De == pred$class)
+#ügyesen kell kerekíteni
+
+#Megoldás: 91,77
+
+
+#Az admission adatbázisban található GPA és GMAT pontszámok alapján szeretnénk megjósolni a fõiskolára való 
+#bekerülés valószínûségét (De = admit, notadmit, borderline). Az adatbázis letölthetõ a következõ címrõl:
+#  http://www.biz.uiowa.edu/faculty/jledolter/DataMining/admission.csv
+#Soroljuk be a jelentkezõket az „admit”, „notadmit”, vagy „borderline” kategóriák valamelyikébe. 
+#Várhatóan melyik csoportba fog tartozni az a jelentkezõ, akinek a következõ pontszámai vannak: GPA=3.21, GMAT=497?
+
+input = read.csv("admission.csv", header = TRUE)
+attach(input)
+#jól szétválasztjuk
+model = lda(De ~ GPA + GMAT)
+pred = data.frame(predict(model,data.frame(GPA=3.21, GMAT=497)))
+pred
+#a legelsõ szöveges érték
+
+#Helyes válasz: admit
+
+
+#Az admission adatbázisban található GPA és GMAT pontszámok alapján szeretnénk megjósolni a fõiskolára való 
+#bekerülés valószínûségét (De = admit, notadmit, borderline). Az adatbázis letölthetõ a következõ címrõl:
+#  http://www.biz.uiowa.edu/faculty/jledolter/DataMining/admission.csv
+#Soroljuk be a jelentkezõket az „admit”, „notadmit”, vagy „borderline” kategóriák valamelyikébe. 
+#Mekkora valószínûséggel került a modell által besorolt csoportba az a jelentkezõ, akinek a következõ pontszámai vannak: GPA=3.21, GMAT=497?
+
+input = read.csv("admission.csv", header = TRUE)
+attach(input)
+#jól szétválasztjuk
+model = lda(De ~ GPA + GMAT)
+pred = data.frame(predict(model,data.frame(GPA=3.21, GMAT=497)))
+pred
+#az elsõ számérték
+
+#Megoldás: 0,518 ± 1%
+
+
+#Az admission adatbázisban található GPA és GMAT pontszámok alapján szeretnénk megjósolni a fõiskolára való 
+#bekerülés valószínûségét (De = admit, notadmit, borderline). Az adatbázis letölthetõ a következõ címrõl:
+#  http://www.biz.uiowa.edu/faculty/jledolter/DataMining/admission.csv
+#Milyen módszert használ a felvételizõk „admit”, „notadmit”, vagy „borderline” kategóriákba sorolására?
+
+#Helyes válasz:
+#  Diszkriminancia-analízis
+
+
+# =================================================================================
+
+
+# Olvassuk be a „datasets” csomagból a „UCBAdmissions” adatbázist, 
+# mely aggregált adatokat tartalmaz. 
+# Teszteljük 5%-os szignifikancia szinten azt a nullhipotézist, hogy 
+# a fiúk és a lányok egyforma arányban nyertek felvételt, vagyis, hogy 
+# a felvételi eredmény („Admit”) független a nemtõl („Gender”).
+
+d = data.frame(UCBAdmissions)
+(gyak.tablazat = xtabs(Freq ~ Gender + Admit, data = d))
+chisq.test(gyak.tablazat, correct = FALSE)
+
+#Helyes válasz:
+#  Próbastatisztika = 92,21; szabadsági fok = 1; p < 0,001 --> Elutasítjuk a nullhipotézist, a felvételi eredmény függ a nemtõl.
+
+
+# =================================================================================
+# =================================================================================
+
+
+#Olvassuk be a car_sales.csv adatbázist. Állítsuk elõ az adatbázisban szereplõ (standardizált) 
+#folytonos változókat korrelálatlan változók lineáris kombinációjaként. Hány korrelálatlan változóval 
+#jellemezhetõ az adatbázis, ha legfeljebb 15 százalékos információvesztést szeretnénk elérni?
+
+cars = read.csv2("car_sales.csv", header = TRUE)
+model = princomp(cars[, 3:13], cor = TRUE)
+summary(model)
+#Comp.11-nél láthatjuk a 3. sorban az 1.0 egészes értéket, ha a felette levõt kivonjuk ami a 2. sorban van, 
+#akkor megkapjuk a 3. sorban az 1.0 elõtt levõ értéket, ez ismétlõdik visszafele végig
+#3. sor az információ vesztés a felette levõ pedig hogy mennyivel veszik el folyamatosan
+#azért a Comp.4 a megfelelõ LEGFELJEBB 15%-os vesztésnél, mert 1.00000000-0.89925788 még 0.15 ön belül van, de
+#Comp.3-nál, már 1.00000000-0.84161589 az 0.15 felett van, tehát az már nem jó.
+
+#Megoldás: 4
+
+
+#Olvassuk be a car_sales.csv adatbázist. Az adatbázisban szereplõ folytonos változók (standardizáltjainak) 
+#felhasználásával térjünk át egy olyan új koordinátarendszerre, amelyben a megfigyelések korrelálatlanok. 
+#Ha az adatbázist csak két korrelálatlan változóval jellemezzük, hány százalék az információvesztés mértéke?
+
+cars = read.csv2("car_sales.csv", header = TRUE)
+model = princomp(cars[, 3:13], cor = TRUE)
+summary(model)
+#megbeszéltük, hogy az információvesztés az a 2. sor és 2 korrelálatlan változóval jellemzzük ami annyit tesz,
+#hogy Comp.2 oszlopben keressük
+
+#Megoldás: 22,6 ± 1%
+
+
+
+#Olvassuk be a car_sales.csv adatbázist. Vizsgáljuk meg a folytonos változók közötti Pearson-korrelációkat! 
+#  Mekkora a korreláció a lóerõ (horsepow) és az ár (price) között?
+
+cars = read.csv2("car_sales.csv", header = TRUE)
+attach(cars)
+cor.test(horsepow, price, method = "pearson")
+
+#Megoldás: 0,8535 ± 1%
+
+
+#Olvassuk be a car_sales.csv adatbázist. Az adatbázisban szereplõ folytonos változók (standardizáltjainak) felhasználásával 
+#térjünk át egy olyan új koordinátarendszerre, amelyben a megfigyelések korrelálatlanok. Hogyan áll elõ a legfontosabb új 
+#változó az eredetiek (standardizáltjainak) lineáris kombinációjaként? Adja meg az mpg változó együtthatójának abszolút értékét.
+
+cars = read.csv2("car_sales.csv", header = TRUE)
+model = princomp(cars[, 3:13], cor = TRUE)
+(load = loadings(model))
+#mpg sor
+#Comp.1 oszlop
+
+#Megoldás: 0,342 ± 1%
+
+
+#Olvassuk be a car_sales.csv adatbázist. Milyen módszer segítségével tudjuk az adatbázis méretét csökkenteni?
+
+cars = read.csv2("car_sales.csv", header = TRUE)
+model = princomp(cars[3:100, 3:13], cor = TRUE)
+summary(model)
+#ez a megoldás a fõkomponens analízishez tartozik
+#read.csv helyett read.csv2-vel tudjuk ezt normálisan betölteni
+#mivel az elsõ 2 oszlop nem folytonos változó ezért le kell csapni õket (3:13), elõtte meg a sorokat is leszûrhetjük(3:100)
+
+#Helyes válasz: Fõkomponens-analízis
+
+
+# =================================================================================
+# =================================================================================
+
+
+#Olvassuk be a vallalat.txt adatbázist. Standardizáljuk a folytonos változókat. 
+#Csoportosítsuk a vállalatokat a rendelkezésre álló folytonos változók alapján így, hogy jól szeparált klasztereket kapjunk. 
+#2 csoport kialakításával mekkora lesz az egyes csoportok elemszáma?
+
+adat = read.table("vallalat.txt", header = TRUE)
+attach(adat)
+#tavolsagmatrix = dist(adat[2:4])
+#oszlopok standardizálása
+adat2 = scale(adat[2])
+adat3 = scale(adat[3])
+adat4 = scale(adat[4])
+tavolsagmatrix = dist(cbind(adat2, adat3, adat4))
+model = hclust(tavolsagmatrix, method = "single")
+plot(model)
+rect.hclust(model, 2) # a vállalatok csoportosítása két csoport kialakítása esetén
+
+#megnézzük 1 oldalt hány darab érték van
+
+#Megoldás: 5
+
+
+#Olvassuk be a vallalat.txt adatbázist. Standardizáljuk a folytonos változókat. Csoportosítsuk a vállalatokat 
+#a rendelkezésre álló folytonos változók alapján úgy, hogy jól szeparált klasztereket kapjunk. 
+#Az egymáshoz két legközelebbi vállalat összevonása mekkora távolságnál történt?
+
+adat = read.table("vallalat.txt", header = TRUE)
+attach(adat)
+#oszlopok standardizálása
+adat2 = scale(adat[2])
+adat3 = scale(adat[3])
+adat4 = scale(adat[4])
+tavolsagmatrix = dist(cbind(adat2, adat3, adat4))
+model = hclust(tavolsagmatrix, method = "single")
+#model$merge # a vállalatok összevonásának menete
+magassag = model$height # az összevont vállalatok közötti távolságok a fenti lépések során
+print(magassag, digits = 3) #ITT A MEGOLDÁS: balra a legkissebb, jobbra a legnagyobb
+
+#Megoldás: 0,255 ± 1%
+
+
+#Olvassuk be a vallalat.txt adatbázist. Standardizáljuk a folytonos változókat. Csoportosítsuk a vállalatokat 
+#a rendelkezésre álló folytonos változók alapján úgy, hogy jól szeparált klasztereket kapjunk. 
+#Az utolsó összevonás mekkora távolságnál történt?
+
+adat = read.table("vallalat.txt", header = TRUE)
+attach(adat)
+#oszlopok standardizálása
+adat2 = scale(adat[2])
+adat3 = scale(adat[3])
+adat4 = scale(adat[4])
+tavolsagmatrix = dist(cbind(adat2, adat3, adat4))
+model = hclust(tavolsagmatrix, method = "single")
+#model$merge # a vállalatok összevonásának menete
+magassag = model$height # az összevont vállalatok közötti távolságok a fenti lépések során
+print(magassag, digits = 3) #ITT A MEGOLDÁS: balra a legkissebb, jobbra a legnagyobb
+
+#Megoldás: 2,213 ± 1%
+
+
+#Olvassuk be a vallalat.txt adatbázist. Standardizáljuk a folytonos változókat. Csoportosítsuk a vállalatokat 
+#a rendelkezésre álló folytonos változók alapján úgy, hogy jól szeparált klasztereket kapjunk. Milyen eljárást használ?
+
+#Helyes válasz:
+#  Klaszter-analízis, legközelebbi szomszéd módszer
+
+
+# =================================================================================
+# =================================================================================
+
+
+#Az alábbiak közül melyik hamis a diszkriminancia analízis esetén?
+# =================================================================================
+
+#Eredménye alapján azok a megfigyelések is osztályozhatók, melyek eredeti csoportját nem ismerjük.
+
+#A diszkriminancia függvények az eredeti változók (illetve azok centralizáltjainak) lineáris kombinációi.
+
+#A megfigyeléseket elõre adott osztályokba soroljuk.
+
+#HAMIS - Eredménye alapján megjósolható egy folytonos változónak egy másik folytonos változóhoz tartozó értéke.
+
+#Eredménye alapján megjósolható, hogy a megfigyelések mekkora valószínûséggel kerülnek egy adott csoportba.
+
+# =================================================================================
+
+
+#Az alábbiak közül melyik igaz a divizív hierarchikus klaszterezési eljárásokra?
+# =================================================================================
+
+#IGAZ - Kezdetben minden megfigyelés egyetlen klaszterbe kerül, majd ezt a klasztert minden lehetséges módon 
+#felbontjuk két részre, és azt a felbontást tartjuk meg, ahol a klaszterek közötti távolság a legnagyobb.
+
+#Kezdetben minden megfigyelés egyetlen klaszterbe kerül, majd ezt a klasztert minden lehetséges módon 
+#felbontjuk annyi részre, amennyire szükségünk van.
+
+#Kezdetben minden megfigyelés önálló klasztert alkot, majd fokozatosan összevonjuk a két legtávolabbi 
+#klasztert egészen addig, amíg egyetlen klaszterünk nem lesz.
+
+#Kezdetben minden megfigyelés önálló klasztert alkot, majd fokozatosan összevonjuk a két legközelebbi 
+#klasztert egészen addig, amíg egyetlen klaszterünk nem lesz.
+# =================================================================================
+
+
+# =================================================================================
+# =================================================================================
+
+
+#Olvassuk be a következõ címen található adatbázist (az elsõ sorban nincsenek megadva a változónevek) a „dat” nevû 
+#táblázatba: http://www4.stat.ncsu.edu/~stefanski/NSF_Supported/Hidden_Images/orly_owl_files/orly_owl_Lin_4p_5_flat.txt.
+#A következõ utasítások futtatásával, többszörös lineáris regresszió alkalmazásával vizsgáljuk meg, hogyan függ a V1 
+#változó a többi változótól; majd ábrázoljuk a hibatagokat a becsült értékek függvényében (regressziós diagnosztika):
+#  fit = lm(V1 ~ . - 1, data = dat); plot(predict(fit), resid(fit), pch = '.').
+#Milyen ábrát kaptunk, és mire hívja fel a figyelmet?
+
+dat = read.table("orly_owl_Lin_4p_5_flat.txt", header = FALSE)
+fit = lm(V1 ~ . - 1, data = dat); plot(predict(fit), resid(fit), pch = '.')
+
+#Helyes válasz: A bagoly szerint fontos a regressziós diagnosztika.
+
+
